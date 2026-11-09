@@ -1,0 +1,1 @@
+Package 2: Garage Partner App (garage.html & diagnosis.html — Passcode Gate: PARTNER-01 + CC1010 / CC105) — One-Time Locked Profile + Full KYC (GSTIN, Shop License, Shop Aadhaar, Shop PAN), Dynamic PDF Invoice Toggles (18% GST, License, Aadhaar, PAN, Mastery Certificate, Password Protection) + WhatsApp Bill Dispatch, and Company Compliance Hold.
