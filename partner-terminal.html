@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#050d16">
+  <link rel="manifest" href="manifest-partner.json">
+  <link rel="icon" href="icon-192.png">
+  <link rel="stylesheet" href="app.css">
+  <title>CC Motocrafts | Partner Workshop Hub, Tech ID & Dynamic PDF Invoicing</title>
+</head>
+<body>
+<header class="top">
+  <div class="wrap top-inner">
+    <a class="brand" href="index.html">
+      <span class="brand-badge">CC</span>
+      <div>CC MOTOCRAFTS<small data-i18n-tagline>PARTNER WORKSHOP HUB · STRICT 2W/4W ISOLATION</small></div>
+    </a>
+    <nav id="nav" class="nav"></nav>
+    <span class="pill gold" id="partner-domain-pill">2W PARTNER MODE (100cc–2500cc)</span>
+  </div>
+</header>
+
+<div class="wrap">
+  <div id="switcher" class="switcher"></div>
+  
+  <div class="brand-ribbon">
+    <span class="brand-chip ktm">🏍️ 2W: 100cc Commuters → 2500cc Superbikes</span>
+    <span class="brand-chip ducati">🔥 Ducati · Triumph 2500cc · BMW · Benelli · KTM · RE</span>
+    <span class="brand-chip kawasaki">🛵 CVT Tuning · OBD-II · Tappet · Voice-Command Tech</span>
+    <span class="brand-chip bmw">🚘 4W: Cars · Luxury SUVs · Heavy Fleet</span>
+    <span class="brand-chip triumph">❄️ AC Overhaul · 3D Alignment · Auto Gearbox</span>
+    <span class="brand-chip fleet">🚛 Hydraulic Flatbed Ramp · Urban Home & Parking</span>
+  </div>
+
+
+
+  <!-- PARTNER SECURITY GATE, ONLINE/OFFLINE AVAILABILITY TOGGLE & FREE 10KM RADIUS FLATBED COORDINATOR -->
+  <section class="card full" style="margin-top:12px;border:2px solid var(--gold);background:linear-gradient(135deg,rgba(245,183,0,0.08) 0%,rgba(5,13,22,0.96) 100%)">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
+      <div>
+        <span class="eyebrow"><span class="live-dot"></span> PARTNER & GARAGE DISPATCH PORTAL (CC 1010 · partner-terminal.html)</span>
+        <h2 style="margin:4px 0">Workshop Availability Toggle (Online/Offline) & Free 10km Flatbed Dispatch</h2>
+        <p class="muted" style="margin:0">Authenticate with your Partner ID & Passcode (`CC1010` / `CC105`). Toggle your workshop <strong>ONLINE / OFFLINE</strong> to accept or pause incoming dispatches and coordinate <strong>Free 10km Radius Hydraulic Van / Flatbed Pickups</strong>.</p>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <input id="partner-id-input" value="PARTNER-01" placeholder="Partner ID" style="background:#07121e;color:#fff;border:1px solid var(--line);border-radius:10px;padding:9px;width:135px">
+        <input id="partner-passcode" type="password" value="CC1010" placeholder="Garage Passcode" style="background:#07121e;color:#fff;border:1px solid var(--gold);border-radius:10px;padding:9px;width:145px">
+        <button type="button" class="gold" id="btn-partner-unlock">🔓 Authenticate</button>
+        <button type="button" class="green" id="btn-toggle-availability" onclick="window.togglePartnerAvailability()">🟢 Status: ONLINE (Accepting Jobs)</button>
+        <button type="button" class="primary" id="btn-toggle-10km" onclick="window.toggleFree10kmPickup()">🚛 Free 10km Flatbed: ON</button>
+      </div>
+    </div>
+    <div id="partner-access-banner" style="margin-top:10px"></div>
+  </section>
+
+  <div id="partner-protected-workspace">
+
+  <section class="hero" style="padding-bottom:10px">
+    <div class="eyebrow">STRICT 2W vs 4W PARTNER ISOLATION · ONE-TIME LOCKED PROFILE · DYNAMIC PDF INVOICING</div>
+    <h1>Partner Workshop Hub, Technician ID Card & Dynamic GST Invoice Engine.</h1>
+    <p>When a partner logs in, their profile, job cards, and AI diagnostic tools strictly match their registered category (<strong>2W Partner = 2W Tools/Leads Only [100cc–2500cc]</strong>; <strong>4W Partner = 4W Tools/Leads Only [Cars/SUVs/Fleet]</strong>). Zero cross-mixing.</p>
+    <div class="actions">
+      <button type="button" id="partner-mode-2w" class="primary">🏍️ Login as 2-Wheeler Partner (100cc Commuters to 2500cc Superbikes)</button>
+      <button type="button" id="partner-mode-4w">🚘 Login as 4-Wheeler Partner (Cars, SUVs & Heavy Fleet)</button>
+    </div>
+  </section>
+
+  <div class="grid">
+    <!-- Left: One-Time Secure Profile Setup (Locks after saving) + Technician ID Card Generator -->
+    <section class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px">
+        <span class="pill gold">ONE-TIME SECURE SETUP</span>
+        <span class="pill green" id="profile-lock-badge">🔓 READY FOR ONE-TIME SETUP</span>
+      </div>
+      <h2>Workshop Profile, Shop Photos & Tech ID</h2>
+      <form id="partner-setup-form" class="list">
+        <div class="field">
+          <label>Registered Domain Category (Strictly Isolated) *</label>
+          <select id="p-scope" required>
+            <option value="2w">2-Wheeler Only (100cc Commuters to 2500cc Superbikes)</option>
+            <option value="4w">4-Wheeler Only (Cars, SUVs & Heavy Fleet)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Workshop / Garage Name *</label>
+          <input id="p-garage" required value="CC Motocrafts Master Superbike & 2W Bay">
+        </div>
+        <div class="field">
+          <label>Master Owner / Lead Technician Name *</label>
+          <input id="p-owner" required value="Ustad Abdul Kareem (30-Yr Master Tech)">
+        </div>
+        <div class="field">
+          <label>Mobile Number *</label>
+          <input id="p-phone" required value="+91 8333007351">
+        </div>
+        <div class="field"><label>GSTIN Number *</label><input id="p-gst" required value="36AABCC7860M1Z5"></div>
+        <div class="field"><label>Shop Trade License No. *</label><input id="p-lic" required value="GHMC-TRD-2026-88412"></div>
+        <div class="field"><label>Shop Owner Aadhaar Card (KYC) *</label><input id="p-aadhaar" required value="XXXX-XXXX-7860 (Verified)"></div>
+        <div class="field"><label>Shop PAN Card Number *</label><input id="p-pan" required value="AABCC7860M"></div>
+        <div class="field">
+          <label>Visiting Card & Bay Specialization *</label>
+          <input id="p-card" required value="100cc-2500cc Superbike, CVT, OBD-II & Hydraulic Ramp">
+        </div>
+        <div class="field">
+          <label>Upload Visiting Card & Shop Bay Photos</label>
+          <input type="file" id="p-card-file" accept="image/*" multiple style="padding:8px">
+        </div>
+        <div class="field">
+          <label>Full Shop Address & PIN Code *</label>
+          <input id="p-addr" required value="Road No. 10, Banjara Hills, Hyderabad - 500034">
+        </div>
+        <button class="primary" type="submit" id="btn-save-partner-profile">🔒 Complete One-Time Setup & Lock Parameters</button>
+      </form>
+      <div id="partner-setup-notice" class="notice" style="display:none"></div>
+
+      <!-- Instant Technician ID Card Generator -->
+      <div class="tech-id-card" style="margin-top:16px" id="tech-id-card-box"></div>
+    </section>
+
+    <!-- Right: Strictly Isolated Job Cards + Hands-Free Partner AI Tool -->
+    <section class="card wide">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
+        <div>
+          <span class="pill green" id="routed-domain-badge"><span class="live-dot"></span> STRICT 2-WHEELER ROUTED JOB CARDS</span>
+          <h2 id="routed-jobs-heading" style="margin-top:6px">2-Wheeler Partner Job Cards & Hands-Free Voice AI</h2>
+        </div>
+        <select id="active-partner-filter" style="background:#07121e;color:#fff;border:1px solid var(--line);border-radius:10px;padding:10px">
+          <option value="2w">2W Partner View Only (100cc–2500cc)</option>
+          <option value="4w">4W Partner View Only (Cars/SUVs/Fleet)</option>
+        </select>
+      </div>
+      <div id="partner-jobs-list" class="list"></div>
+
+      <!-- Partner Domain-Specific Hands-Free Voice AI Helper -->
+      <div class="item" style="margin-top:14px;border-color:var(--cyan)">
+        <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+          <span class="pill gold" id="partner-ai-pill">🎙️ GREASE-FREE VOICE AI FOR 2W TECHNICIANS (100cc–2500cc)</span>
+          <span class="muted" style="font-size:12px">Zero Cross-Domain Mixing</span>
+        </div>
+        <div class="field" style="margin-top:8px">
+          <input id="partner-ai-q" value="Triumph Rocket 2500cc / KTM 390 tappet clearance & OBD P0301 coil check" placeholder="Speak or type fault code / symptom…">
+        </div>
+        <div class="actions">
+          <button type="button" class="primary" id="btn-partner-ai-run">🧠 Get Domain Spec & Torque</button>
+          <button type="button" class="gold" id="btn-partner-ai-speak">🔊 Read Aloud (Hands-Free)</button>
+        </div>
+        <div id="partner-ai-out" class="notice good" style="margin-top:10px"></div>
+      </div>
+    </section>
+
+    <!-- Full-Width: Dynamic PDF Invoice Generator with GST, License & Certificate Toggles -->
+    <section class="card full" id="dynamic-invoice-section">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
+        <div>
+          <span class="eyebrow">DYNAMIC PDF INVOICE GENERATOR · REAL-TIME TOGGLES</span>
+          <h2 style="margin:4px 0 0">Customer Invoice with Dynamic GST, License Badge & Certificate Toggles</h2>
+        </div>
+        <button type="button" class="gold" id="btn-print-invoice">🖨️ Print / Export Official PDF Invoice</button>
+      </div>
+
+      <div class="toggle-row">
+        <label class="toggle-label">
+          <input type="checkbox" id="tog-gst" checked>
+          <span>🧾 Enable GST (18% CGST/SGST Breakdown & GSTIN)</span>
+        </label>
+        <label class="toggle-label">
+          <input type="checkbox" id="tog-license" checked>
+          <span>🛡️ Enable Trade License Verification Badge</span>
+        </label>
+        <label class="toggle-label">
+          <input type="checkbox" id="tog-cert" checked>
+          <span>🏅 Enable Master Workshop Warranty & Quality Certificate</span></label>
+        <label class="toggle-label"><input type="checkbox" id="tog-aadhaar" checked><span>🪪 Enable Shop Aadhaar & PAN KYC</span></label>
+      </div>
+
+      <div class="invoice-preview" id="invoice-preview-box"></div>
+    </section>
+  </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="wrap">CC Motocrafts Partner Workshop Hub · Strict 2W vs 4W Isolation · One-Time Locked Profile · Dynamic PDF Invoicing</div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+let partnerMode = '2w';
+
+let partnerOnline = true;
+let free10kmActive = true;
+
+window.togglePartnerAvailability = function() {
+  partnerOnline = !partnerOnline;
+  const st = loadState();
+  const p = (st.partners || [])[0];
+  if (p) p.availability_status = partnerOnline ? 'ONLINE' : 'OFFLINE';
+  window.logDualGmailTelemetry(st, 'GARAGE_PARTNER', 'AVAILABILITY_TOGGLE', p ? p.garage_name : 'PARTNER-01', 'Partner toggled availability to ' + (partnerOnline ? 'ONLINE' : 'OFFLINE'));
+  saveState(st);
+  evaluatePartnerPortalAccess();
+};
+
+window.toggleFree10kmPickup = function() {
+  free10kmActive = !free10kmActive;
+  const btn = document.getElementById('btn-toggle-10km');
+  if (btn) {
+    btn.className = free10kmActive ? 'primary' : 'btn';
+    btn.textContent = free10kmActive ? '🚛 Free 10km Flatbed: ON' : '⏸️ Free 10km Flatbed: PAUSED';
+  }
+};
+
+function evaluatePartnerPortalAccess() {
+  const st = loadState();
+  const ws = document.getElementById('partner-protected-workspace');
+  const banner = document.getElementById('partner-access-banner');
+  const avBtn = document.getElementById('btn-toggle-availability');
+  if (avBtn) {
+    avBtn.className = partnerOnline ? 'green' : 'danger';
+    avBtn.textContent = partnerOnline ? '🟢 Status: ONLINE (Accepting Jobs)' : '🔴 Status: OFFLINE (Dispatches Paused)';
+  }
+  if (!ws || !banner) return;
+
+  // Check if session was remotely revoked by Master Owner in active_sessions
+  if (window.isRoleSessionRevoked('GARAGE_PARTNER') || st.garageTerminalStatus === 'disabled' || st.garageTerminalStatus === 'blocked') {
+    ws.style.opacity = '0.2';
+    ws.style.pointerEvents = 'none';
+    ws.style.filter = 'blur(4px)';
+    banner.innerHTML = `<div class="locked-banner"><div>🚨 <strong>ACCESS REVOKED — RESTRICTED READ-ONLY MODE (TERMINATED BY MASTER OWNER)</strong><br>Your device session token (<code>CCM-FP-ANDROID13-BAY01-772E</code>) has been remotely revoked by Shaik Mujahid (Master Owner Command). All operational actions, job card updates, and invoice generation are permanently locked.</div><span class="pill red">ACCESS REVOKED</span></div>`;
+    return;
+  }
+
+  const pass = (document.getElementById('partner-passcode') ? document.getElementById('partner-passcode').value : '').trim();
+  if (!verifyPartnerKey(pass)) {
+    ws.style.opacity = '0.25';
+    ws.style.pointerEvents = 'none';
+    ws.style.filter = 'blur(3px)';
+    banner.innerHTML = `<div class="notice warn">🔒 Enter valid Garage Passcode (<code>CC1010</code> or <code>CC105</code>) above to unlock Partner Dispatch Terminal.</div>`;
+    return;
+  }
+
+  ws.style.opacity = '1';
+  ws.style.pointerEvents = 'auto';
+  ws.style.filter = 'none';
+  banner.innerHTML = `<div class="notice good">✅ <strong>Partner Dispatch Terminal Active · Availability: ${partnerOnline ? 'ONLINE' : 'OFFLINE'} · Free 10km Radius Flatbed Van Pickup: ${free10kmActive ? 'ENABLED' : 'PAUSED'} · Dual-Gmail Telemetry Linked.</strong></div>`;
+}
+
+let profileLocked = false;
+
+function renderTechIdCard() {
+  const garage = document.getElementById('p-garage').value || 'CC Motocrafts Master Bay';
+  const owner = document.getElementById('p-owner').value || 'Master Technician';
+  const phone = document.getElementById('p-phone').value || '+91 8333007351';
+  const gst = document.getElementById('p-gst').value || '36AABCC7860M1Z5';
+  const addr = document.getElementById('p-addr').value || 'Hyderabad';
+  const is2W = partnerMode === '2w';
+
+  document.getElementById('tech-id-card-box').innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+      <span class="pill ${is2W ? 'green' : ''}">${is2W ? '🏍️ 2W MASTER TECH ID (100cc–2500cc)' : '🚘 4W MASTER TECH ID (CARS/FLEET)'}</span>
+      <span class="pill gold">ID: CCM-${partnerMode.toUpperCase()}-786</span>
+    </div>
+    <h3 style="margin:4px 0;color:#fff">${owner}</h3>
+    <div class="muted" style="font-size:12.5px">
+      <strong>Workshop:</strong> ${garage}<br>
+      <strong>Authorized Domain:</strong> ${is2W ? '2-Wheeler Exclusively (Commuters, CVT, Superbikes up to 2500cc)' : '4-Wheeler Exclusively (Cars, SUVs, Heavy Fleet, 3D Alignment)'}<br>
+      <strong>Mobile:</strong> ${phone} · <strong>GSTIN:</strong> <code>${gst}</code><br>
+      <strong>Shop Address:</strong> ${addr}<br>
+      <strong>Security Status:</strong> ${profileLocked ? '🔒 One-Time Profile Locked (Anti-Fraud Verified)' : '🟢 Active Preview'}
+    </div>
+    <div class="actions" style="margin-top:10px">
+      <button type="button" class="btn primary" onclick="window.print()">🪪 Print Technician ID Card</button>
+    </div>
+  `;
+}
+
+function renderDynamicInvoice() {
+  const st = loadState();
+  const jobs = st.bookings.filter(b => b.vehicle_type === partnerMode);
+  const job = jobs[0] || st.bookings[0];
+  const showGst = document.getElementById('tog-gst').checked;
+  const showLic = document.getElementById('tog-license').checked;
+  const showCert = document.getElementById('tog-cert').checked;
+
+  const baseAmt = Number(job.estimate) || 3500;
+  const gstAmt = showGst ? Math.round(baseAmt * 0.18) : 0;
+  const finalAmt = baseAmt + gstAmt;
+  const garageName = document.getElementById('p-garage').value || job.garage_name;
+  const gstNo = document.getElementById('p-gst').value || '36AABCC7860M1Z5';
+
+  document.getElementById('invoice-preview-box').innerHTML = `
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--line);padding-bottom:12px">
+      <div>
+        <div style="font:700 20px 'Space Grotesk',sans-serif;color:#fff">${garageName}</div>
+        <div class="muted">Authorized ${partnerMode === '2w' ? '2-Wheeler (100cc–2500cc)' : '4-Wheeler & Fleet'} Partner · ${document.getElementById('p-addr').value}</div>
+        ${showGst ? `<div style="margin-top:4px"><span class="pill gold">GSTIN: ${gstNo} (Tax Invoice)</span></div>` : `<div style="margin-top:4px"><span class="pill">Standard Local Estimate / Cash Memo (GST Disabled)</span></div>`}
+      </div>
+      <div style="text-align:right">
+        <strong>INVOICE #INV-${job.booking_code}</strong>
+        <div class="muted">Customer: ${job.customer_name} (${job.phone})</div>
+        <div class="muted">Vehicle: ${job.brand} ${job.model} (${job.registration_no || 'Verified'})</div>
+      </div>
+    </div>
+
+    <div class="table-wrap" style="margin-top:12px">
+      <table>
+        <thead>
+          <tr><th>Description</th><th>Domain</th><th>Base Charge</th>${showGst ? '<th>CGST (9%) + SGST (9%)</th>' : ''}<th>Total</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>${job.service_type}</strong><br><span class="muted">${job.complaint}</span></td>
+            <td><span class="pill ${partnerMode === '2w' ? 'green' : ''}">${partnerMode.toUpperCase()} ONLY</span></td>
+            <td>₹${baseAmt.toLocaleString('en-IN')}</td>
+            ${showGst ? `<td>₹${gstAmt.toLocaleString('en-IN')} (18%)</td>` : ''}
+            <td><strong>₹${finalAmt.toLocaleString('en-IN')}</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:14px">
+      ${showLic ? `<div class="item" style="flex:1;min-width:240px;border-color:var(--green)"><span class="pill green">🛡️ LICENSE VERIFICATION BADGE</span><div class="muted" style="margin-top:6px">Trade License #HYD-MOTO-2026-8841 · Background-Verified Master Technicians · Approved by Supreme Owner Command.</div></div>` : ''}
+      ${showCert ? `<div class="item" style="flex:1;min-width:240px;border-color:var(--gold)"><span class="pill gold">🏅 MASTER WORKSHOP CERTIFICATE</span><div class="muted" style="margin-top:6px">${job.warranty} · 100% Genuine OEM Parts Certified · Road-Test Passed.</div></div>` : ''}
+    </div>
+  `;
+}
+
+function setPartnerDomainMode(dom) {
+  partnerMode = dom === '4w' ? '4w' : '2w';
+  document.getElementById('partner-mode-2w').className = partnerMode === '2w' ? 'primary' : '';
+  document.getElementById('partner-mode-4w').className = partnerMode === '4w' ? 'primary' : '';
+  document.getElementById('active-partner-filter').value = partnerMode;
+  document.getElementById('p-scope').value = partnerMode;
+
+  if (partnerMode === '2w') {
+    document.getElementById('partner-domain-pill').textContent = '2W PARTNER MODE (100cc–2500cc ONLY)';
+    document.getElementById('routed-domain-badge').innerHTML = '<span class="live-dot"></span> STRICT 2-WHEELER ROUTED JOB CARDS (NO 4W MIXING)';
+    document.getElementById('routed-jobs-heading').textContent = '🏍️ 2-Wheeler Partner Job Cards (100cc Commuters to 2500cc Superbikes)';
+    document.getElementById('partner-ai-pill').textContent = '🎙️ GREASE-FREE VOICE AI FOR 2W TECHNICIANS (100cc–2500cc)';
+    document.getElementById('partner-ai-q').value = 'Triumph Rocket 2500cc / KTM 390 tappet clearance, CVT belt tuning & OBD fault check';
+    if (!profileLocked) {
+      document.getElementById('p-garage').value = 'CC Motocrafts Superbike & 2W Master Bay (Banjara Hills)';
+      document.getElementById('p-card').value = '100cc-2500cc Superbike, CVT, OBD-II & Hydraulic Ramp';
+    }
+  } else {
+    document.getElementById('partner-domain-pill').textContent = '4W PARTNER MODE (CARS / SUVS / FLEET ONLY)';
+    document.getElementById('routed-domain-badge').innerHTML = '<span class="live-dot"></span> STRICT 4-WHEELER ROUTED JOB CARDS (NO 2W MIXING)';
+    document.getElementById('routed-jobs-heading').textContent = '🚘 4-Wheeler Partner Job Cards (Cars, SUVs & Heavy Commercial Fleet)';
+    document.getElementById('partner-ai-pill').textContent = '🎙️ GREASE-FREE VOICE AI FOR 4W TECHNICIANS (CARS / FLEET)';
+    document.getElementById('partner-ai-q').value = 'Hyundai Creta DCT transmission pressure check, HVAC AC overhaul & Hunter 3D alignment';
+    if (!profileLocked) {
+      document.getElementById('p-garage').value = 'CC Motocrafts 4W Hydraulic & AC Master Hub (Madhapur)';
+      document.getElementById('p-card').value = '4W Automatic Gearbox, AC Overhaul, 3D Alignment & Flatbed';
+    }
+  }
+
+  renderPartnerJobs();
+  renderTechIdCard();
+  renderDynamicInvoice();
+  runPartnerAiTool();
+}
+
+function renderPartnerJobs() {
+  const st = loadState();
+  const box = document.getElementById('partner-jobs-list');
+  if (!box) return;
+
+  const jobs = st.bookings.filter(b => b.vehicle_type === partnerMode);
+  if (!jobs.length) {
+    box.innerHTML = `<div class="notice">No ${partnerMode.toUpperCase()} job cards currently routed to this partner bay.</div>`;
+    return;
+  }
+
+  box.innerHTML = jobs.map(b => `
+    <div class="item">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px">
+        <div>
+          <span class="pill ${b.vehicle_type === '2w' ? 'green' : ''}">${b.vehicle_type.toUpperCase()} EXCLUSIVE</span>
+          <strong style="display:inline;margin-left:6px;font-size:15px">${b.booking_code} · ${b.brand} ${b.model}</strong>
+        </div>
+        <span class="pill gold">STAGE: ${b.stage.toUpperCase()}</span>
+      </div>
+      <div class="muted">
+        <strong>Customer:</strong> ${b.customer_name} (${b.phone}) · <strong>Location:</strong> ${b.address} (PIN: ${b.pincode})<br>
+        <strong>Service:</strong> ${b.service_type} · <strong>Symptom:</strong> ${b.complaint}
+      </div>
+      <div class="actions" style="margin-top:10px">
+        <select id="stage-sel-${b.id}" style="background:#07121e;color:#fff;border:1px solid var(--line);border-radius:10px;padding:9px">
+          <option value="Booked" ${(b.telemetry_stage||b.stage) === 'Booked' ? 'selected' : ''}>01 · Booked (Order Logged)</option>
+          <option value="Van Dispatched" ${(b.telemetry_stage||b.stage) === 'Van Dispatched' ? 'selected' : ''}>02 · Van Dispatched (Free 10km Pickup)</option>
+          <option value="Reached Workshop" ${(b.telemetry_stage||b.stage) === 'Reached Workshop' ? 'selected' : ''}>03 · Reached Workshop (Bay Intake)</option>
+          <option value="Diagnostic Video Sent" ${(b.telemetry_stage||b.stage) === 'Diagnostic Video Sent' ? 'selected' : ''}>04 · Diagnostic Video Sent (WhatsApp Approval)</option>
+          <option value="Repairing" ${(b.telemetry_stage||b.stage) === 'Repairing' ? 'selected' : ''}>05 · Repairing (OEM Parts Overhaul)</option>
+          <option value="Delivered" ${(b.telemetry_stage||b.stage) === 'Delivered' ? 'selected' : ''}>06 · Delivered (Written Warranty Active)</option>
+        </select>
+        <input type="number" id="est-inp-${b.id}" value="${b.estimate || 2500}" style="width:120px;background:#07121e;color:#fff;border:1px solid var(--line);border-radius:10px;padding:9px">
+        <button type="button" class="primary" data-update-job="${b.id}">Update Stage & Sync Invoice</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function runPartnerAiTool() {
+  const q = document.getElementById('partner-ai-q').value;
+  const res = runIsolatedMasterAI(partnerMode, q, { pincode: '500034', address: 'Hyderabad' });
+  const out = document.getElementById('partner-ai-out');
+  out.className = res.blocked ? 'notice danger' : 'notice good';
+  out.innerHTML = `<strong>${res.title}</strong><br>${res.reply.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>')}`;
+}
+
+window.onCcmStateChange = () => {
+  evaluatePartnerPortalAccess();
+  renderPartnerJobs();
+  renderDynamicInvoice();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('partner-mode-2w').onclick = () => evaluatePartnerPortalAccess();
+  document.getElementById('btn-partner-unlock').onclick = evaluatePartnerPortalAccess;
+  setPartnerDomainMode('2w');
+  document.getElementById('partner-mode-4w').onclick = () => setPartnerDomainMode('4w');
+  document.getElementById('active-partner-filter').onchange = (e) => setPartnerDomainMode(e.target.value);
+
+  ['tog-gst', 'tog-license', 'tog-cert'].forEach(id => {
+    document.getElementById(id).onchange = renderDynamicInvoice;
+  });
+
+  document.getElementById('btn-print-invoice').onclick = () => window.print();
+  document.getElementById('btn-partner-ai-run').onclick = runPartnerAiTool;
+  document.getElementById('btn-partner-ai-speak').onclick = () => speakRepairGuidance(document.getElementById('partner-ai-out').innerText);
+
+  document.getElementById('partner-jobs-list').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-update-job]');
+    if (!btn) return;
+    const id = Number(btn.dataset.updateJob);
+    const st = loadState();
+    const job = st.bookings.find(x => Number(x.id) === id);
+    if (job) {
+      job.stage = document.getElementById('stage-sel-' + id).value;
+      job.telemetry_stage = job.stage;
+      job.status = job.stage;
+      window.logDualGmailTelemetry(st, 'GARAGE_PARTNER', 'STAGE_UPDATE', job.booking_code, `Updated stage to ${job.stage} (Estimate: Rs.${job.estimate})`);
+      job.estimate = Number(document.getElementById('est-inp-' + id).value) || job.estimate;
+      saveState(st);
+      renderPartnerJobs();
+      renderDynamicInvoice();
+    }
+  });
+
+  document.getElementById('partner-setup-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (profileLocked) return;
+    profileLocked = true;
+    const form = e.target;
+    form.querySelectorAll('input, select').forEach(inp => { inp.disabled = true; });
+    const btn = document.getElementById('btn-save-partner-profile');
+    btn.disabled = true;
+    btn.textContent = '🔒 ONE-TIME PROFILE LOCKED (SUPREME OWNER PROTECTED)';
+    document.getElementById('profile-lock-badge').className = 'pill red';
+    document.getElementById('profile-lock-badge').textContent = '🔒 LOCKED (ANTI-FRAUD)';
+
+    const n = document.getElementById('partner-setup-notice');
+    n.style.display = 'block';
+    n.className = 'notice good';
+    n.innerHTML = `✅ <strong>One-Time Partner Profile & Technician ID Card Locked!</strong><br>Core business parameters (Shop Name, GSTIN, Address & Category) are now permanently locked against tampering. Only Supreme Owner can unlock or modify them.`;
+    renderTechIdCard();
+    renderDynamicInvoice();
+  });
+
+  setPartnerDomainMode('2w');
+});
+</script>
+</body>
+</html>
