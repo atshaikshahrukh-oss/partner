@@ -1,543 +1,538 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#050d16">
-  <meta name="description" content="CC Motocrafts Global Mobility & Urban Service Super-Platform v1.0">
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" href="icon-192.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CC Motocrafts | Garage Partner Terminal (CC 1010)</title>
   <link rel="stylesheet" href="app.css">
-  <title>CC Motocrafts | Global 2W, 4W & Urban Service Master Platform v1.0</title>
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "AutoRepair",
-    "name": "CC Motocrafts Global Mobility & Superbike/Car Care Platform",
-    "founder": { "@type": "Person", "name": "Shaik Mujahid" },
-    "telephone": "+91-8333007351",
-    "email": "info@ccmotocrafts.in",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Banjara Hills & Madhapur Master Hubs",
-      "addressLocality": "Hyderabad",
-      "addressRegion": "Telangana",
-      "postalCode": "500034",
-      "addressCountry": "IN"
-    },
-    "openingHours": "Mo-Su 00:00-23:59",
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.9", "reviewCount": "1420" }
-  }
-  </script>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icon.svg">
+  <style>
+    body { background: #070b12; color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 0; }
+    .partner-header { background: #0d1522; border-bottom: 1px solid #1e293b; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .brand-title { font-size: 1.25rem; font-weight: 800; color: #00f0ff; letter-spacing: 0.5px; }
+    .brand-sub { font-size: 0.8rem; color: #94a3b8; }
+    .header-badges { display: flex; gap: 8px; align-items: center; }
+    .badge { padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; }
+    .badge-cyan { background: rgba(0, 240, 255, 0.15); color: #00f0ff; border: 1px solid rgba(0, 240, 255, 0.3); }
+    .badge-amber { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px 16px; }
+    .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+    .card-title { font-size: 1.15rem; font-weight: 700; color: #f8fafc; margin-top: 0; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+    .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; font-size: 0.9rem; }
+    .btn-primary { background: #00f0ff; color: #050b14; }
+    .btn-primary:hover { background: #38bdf8; }
+    .btn-success { background: #10b981; color: white; }
+    .btn-danger { background: #ef4444; color: white; }
+    .btn-outline { background: transparent; border: 1px solid #334155; color: #cbd5e1; }
+    .btn-outline:hover { background: #1e293b; color: white; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; font-size: 0.85rem; color: #94a3b8; margin-bottom: 6px; font-weight: 500; }
+    .form-control { width: 100%; box-sizing: border-box; background: #070d17; border: 1px solid #334155; border-radius: 8px; padding: 10px 14px; color: white; font-size: 0.95rem; }
+    .form-control:focus { outline: none; border-color: #00f0ff; }
+    .toggle-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .status-pill { padding: 8px 16px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+    .status-online { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981; }
+    .status-offline { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
+    .job-card { background: #141e33; border: 1px solid #233554; border-radius: 10px; padding: 18px; margin-bottom: 16px; }
+    .job-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #233554; padding-bottom: 12px; margin-bottom: 12px; }
+    .job-code { font-family: monospace; font-weight: 700; color: #00f0ff; font-size: 1.05rem; }
+    .job-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; font-size: 0.88rem; }
+    .job-label { color: #64748b; font-size: 0.75rem; text-transform: uppercase; }
+    .job-val { color: #e2e8f0; font-weight: 600; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #1e293b; padding-bottom: 10px; }
+    .tab-btn { background: none; border: none; color: #94a3b8; font-weight: 600; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+    .tab-btn.active { background: #1e293b; color: #00f0ff; border-bottom: 2px solid #00f0ff; }
+    .revoked-screen { display: none; position: fixed; inset: 0; background: #090305; z-index: 99999; flex-direction: column; justify-content: center; align-items: center; padding: 24px; text-align: center; }
+    .revoked-box { background: #1f0a0d; border: 2px solid #ef4444; border-radius: 16px; padding: 40px 32px; max-width: 500px; }
+  </style>
 </head>
 <body>
-<header class="top">
-  <div class="wrap top-inner">
-    <a class="brand" href="index.html">
-      <span class="brand-badge">CC</span>
-      <div><span data-dyn-brand>CC MOTOCRAFTS AI ENGINE LABS SERVICE</span><small>HYDERABAD 2W (100cc–2500cc) & 4W MARKETPLACE · FREE 10KM PICKUP</small></div>
-    </a>
-    <nav id="nav" class="nav"></nav>
-    <a class="btn gold" href="index.html">⚡ Instant Booking (35–45 Min VIP)</a>
-  </div>
-</header>
 
-<div class="wrap">
-  <div id="switcher" class="switcher"></div>
-
-  <div class="brand-ribbon">
-    <span class="brand-chip ktm">🏍️ 2W: 100cc Commuters → 2500cc Superbikes</span>
-    <span class="brand-chip ducati">🔥 Ducati · Triumph 2500cc · BMW · Benelli · KTM · RE</span>
-    <span class="brand-chip kawasaki">🛵 CVT Tuning · OBD-II · Tappet · Voice-Command Tech</span>
-    <span class="brand-chip bmw">🚘 4W: Cars · Luxury SUVs · Heavy Fleet</span>
-    <span class="brand-chip triumph">❄️ AC Overhaul · 3D Alignment · Auto Gearbox</span>
-    <span class="brand-chip fleet">🚛 Hydraulic Flatbed Ramp · Urban Home & Parking</span>
-  </div>
-
-
-  <!-- Live Marketing Banner controlled by Admin/Owner -->
-  <div id="hero-promo-banner" class="notice good" style="font-weight:700;text-align:center;margin-top:10px"></div>
-
-  <!-- UNIFIED CYBERPUNK HERO SECTION WITH VIDEO SHOWCASE & MANDATORY DIVISION SELECTOR (2W vs 4W) -->
-  <section class="hero" style="border:2px solid var(--cyan);background:linear-gradient(135deg,rgba(0,229,255,0.08) 0%,rgba(5,13,22,0.98) 100%)">
-    <div class="eyebrow"><span class="live-dot"></span> CC MOTOCRAFTS AI ENGINE LABS SERVICE · URBAN COMPANY / BRO4U STANDARD MARKETPLACE</div>
-    <h1>Select Your Vehicle Division (2W or 4W) to Unlock Your Dedicated Service & Booking Suite</h1>
-    <p>100% In-House Precision Engine Overhaul & Diagnostic Labs in Hyderabad — Free 10km Radius Hydraulic Van / Flatbed Lorry Pickup & Drop · Hotline: <strong data-dyn-phone>+91 8333007351</strong></p>
-
-    <div class="notice good" style="margin:10px 0;border:2px solid var(--gold);background:rgba(245,183,0,0.12);color:#fff;font-weight:800" data-dynamic-trust-badge>
-      🛡️ 100% Transparency Guarantee: "No spare part replaced without prior WhatsApp Video & Quotation approval."
-    </div>
-
-    <!-- Combined Hero Video + 2W/4W Holographic Telemetry Visuals -->
-    <div class="grid" style="margin:14px 0">
-      <div class="card half" style="padding:10px;background:#040c14;border:1px solid var(--cyan)">
-        <span class="pill green"><span class="live-dot"></span> OFFICIAL 2W & 4W AI ENGINE LABS VIDEO SHOWCASE</span>
-        <video src="hero_intro_2w_4w.mp4" poster="hero_combined_2w_4w.jpg" autoplay loop muted playsinline controls style="width:100%;height:230px;object-fit:cover;border-radius:10px;margin-top:8px;background:#000"></video>
+  <!-- REVOKED SCREEN OVERLAY -->
+  <div id="partner-revoked-screen" class="revoked-screen">
+    <div class="revoked-box">
+      <div style="font-size: 3.5rem; margin-bottom: 12px;">🚨</div>
+      <h1 style="color: #ef4444; margin: 0 0 12px 0;">ACCESS REVOKED</h1>
+      <p style="color: #fca5a5; font-size: 1rem; line-height: 1.5; margin-bottom: 20px;">
+        This garage partner session has been terminated by Supreme Owner Command (Shaik Mujahid). Your terminal access is locked.
+      </p>
+      <div style="background: rgba(0,0,0,0.4); padding: 12px; border-radius: 8px; color: #cbd5e1; font-size: 0.85rem; margin-bottom: 20px;">
+        Contact Master Owner Desk: <strong>+91 8333007351</strong><br>
+        Email: <strong>info@ccmotocrafts.in</strong>
       </div>
-      <div class="card half" style="padding:10px;background:#040c14;border:1px solid var(--gold)">
-        <span class="pill gold">COMBINED 2W (100cc–2500cc) & 4W (800cc–6500cc) HOLOGRAPHIC LAB</span>
-        <img src="hero_combined_2w_4w.jpg" alt="Combined 2W & 4W Holographic Telemetry" style="width:100%;height:230px;object-fit:cover;border-radius:10px;margin-top:8px">
-      </div>
-    </div>
-
-    <!-- Step 1: Mandatory Division Selector Buttons -->
-    <div id="division-lock-banner" class="notice warn" style="font-weight:800;font-size:14px;margin-bottom:12px">
-      🔒 <strong>STEP 1 — SELECT YOUR VEHICLE DIVISION BELOW:</strong> Choose <strong>Two-Wheeler (2W)</strong> or <strong>Four-Wheeler (4W)</strong> below to unlock the dedicated 9-Point Navigation Menu, Pricing Tiers, Live Telemetry Tracker, and Instant Booking Catalog.
-    </div>
-    <div class="grid" style="margin-bottom:0">
-      <div class="card half" style="border:2px solid var(--green);background:#061622;cursor:pointer" onclick="window.switchGlobalVehicleMode('2w', true)">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <span class="pill green">DIVISION 01 · TWO-WHEELER LAB</span>
-          <span class="pill gold">FREE 10KM VAN PICKUP</span>
-        </div>
-        <img src="hero_2w_mobile_van.jpg" onerror="this.onerror=null;this.src='tw_pickup_van_ramp.jpg'" style="width:100%;height:175px;object-fit:cover;border-radius:10px;margin-bottom:10px" alt="2W Mobile Diagnostic Unit-01">
-        <h3>🏍️ Select Two-Wheeler Division (100cc Commuters to 2500cc Superbikes)</h3>
-        <p class="muted" style="font-size:13px">Mobile Diagnostic Unit-01 Ramp Van · KTM, Benelli, Ducati Desmo, Triumph 2500cc, BMW ShiftCam, Royal Enfield, Yamaha VVA & Scooter CVT Overhaul.</p>
-        <button type="button" class="primary" style="width:100%;margin-top:8px;font-weight:900">🔓 Unlock 2-Wheeler Catalog & 9-Point Suite</button>
-      </div>
-      <div class="card half" style="border:2px solid var(--cyan);background:#061622;cursor:pointer" onclick="window.switchGlobalVehicleMode('4w', true)">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <span class="pill">DIVISION 02 · FOUR-WHEELER & FLEET LAB</span>
-          <span class="pill gold">FREE 10KM FLATBED PICKUP</span>
-        </div>
-        <img src="hero_4w_flatbed_loading.jpg" onerror="this.onerror=null;this.src='fw_17_flatbed_transit.jpg'" style="width:100%;height:175px;object-fit:cover;border-radius:10px;margin-bottom:10px" alt="4W Hydraulic Flatbed Loading">
-        <h3>🚘 Select Four-Wheeler Division (800cc Cars, Luxury SUVs & Fleet)</h3>
-        <p class="muted" style="font-size:13px">Zero-Angle Hydraulic Flatbed Lorry · Automatic/DCT Gearbox Rebuild, HVAC AC Lab, Hunter 3D Laser Alignment & Bi-Directional OBD-II Coding.</p>
-        <button type="button" class="gold" style="width:100%;margin-top:8px;font-weight:900">🔓 Unlock 4-Wheeler Catalog & 9-Point Suite</button>
-      </div>
-    </div>
-  </section>
-
-  <div id="division-gated-catalog">
-  <!-- 2-Wheeler & 4-Wheeler Pickup, Drop & Transit Hero Banners -->
-  <div class="grid">
-    <div class="card half" style="padding:0">
-      <div class="banner-card" style="border:0">
-        <img src="tw_pickup_van_ramp.jpg" alt="2-Wheeler Hydraulic Ramp Van Pickup & Drop" onerror="this.onerror=null;this.src='tw_15_doorstep_ramp.jpg'">
-        <div class="banner-body">
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-            <span class="pill green"><span class="live-dot"></span> 2-WHEELER PICKUP & DROP VAN</span>
-            <span class="pill gold">VIP Area: 35–45 Mins · All Hyd: 45–60 Mins</span>
-          </div>
-          <h3>2-Wheeler Doorstep Hydraulic Ramp Van Transit</h3>
-          <p class="muted">Specialized hydraulic ramp van with wheel-chock locks for superbikes, commuters & scooters (Benelli, KTM, Royal Enfield, Yamaha, Suzuki, Vespa, Ducati). Zero-scratch doorstep pickup & drop with real-time GPS tracking.</p>
-          <div class="actions">
-            <a class="btn primary" href="#booking-section" onclick="switchGlobalVehicleMode('2w')">Book 2W Van Pickup</a>
-            <a class="btn" href="diagnosis.html?domain=2w">Ask 2W Master Advisor (30 Yrs Exp)</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="card half" style="padding:0">
-      <div class="banner-card" style="border:0">
-        <img src="fw_17_flatbed_transit.jpg" alt="4-Wheeler Hydraulic Flatbed Lorry Ramp Pickup & Drop">
-        <div class="banner-body">
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px">
-            <span class="pill"><span class="live-dot"></span> 4-WHEELER HYDRAULIC FLATBED LORRY</span>
-            <span class="pill gold">VIP Area: 35–45 Mins · All Hyd: 45–60 Mins</span>
-          </div>
-          <h3>4-Wheeler Hydraulic Flatbed Lorry & Recovery Ramp</h3>
-          <p class="muted">Heavy-duty hydraulic flatbed lorry carrier with low-angle ramp & hydraulic winch for cars, luxury SUVs, and commercial vehicles. Live customer care drop-to-bay GPS tracking & 1-Year / 10,000 KM overhaul warranty.</p>
-          <div class="actions">
-            <a class="btn primary" href="#booking-section" onclick="switchGlobalVehicleMode('4w')">Book 4W Flatbed Lorry Pickup</a>
-            <a class="btn" href="diagnosis.html?domain=4w">Ask 4W Master Advisor (30 Yrs Exp)</a>
-          </div>
-        </div>
-      </div>
+      <button class="btn btn-outline" onclick="location.reload()">Check Session Again</button>
     </div>
   </div>
 
-  <!-- HOME PAGE LIVE PICKUP/DROP & WORKSHOP BAY TRACKING SETUP -->
-  <section class="card full" id="home-live-tracking">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
-      <div>
-        <span class="eyebrow"><span class="live-dot"></span> HOME PAGE LIVE GPS & WORKSHOP BAY TRACKING HUB</span>
-        <h2 style="margin-top:4px">Track Your 2W Van / 4W Flatbed Lorry Pickup, Customer Care Drop & Live Service Bay</h2>
-      </div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
-        <button type="button" class="btn" id="demo-track-2w">Demo 2W Van (CCM-HYD-2W01)</button>
-        <button type="button" class="btn" id="demo-track-4w">Demo 4W Lorry (CCM-HYD-4W02)</button>
-      </div>
+  <!-- HEADER -->
+  <header class="partner-header">
+    <div>
+      <div class="brand-title">CC MOTOCRAFTS</div>
+      <div class="brand-sub">GARAGE PARTNER DISPATCH TERMINAL • HYDERABAD</div>
     </div>
-    <div class="form-grid" style="align-items:end">
-      <div class="field">
-        <label>Booking Reference or Vehicle Registration</label>
-        <input id="home-track-code" value="CCM-HYD-2W01" placeholder="e.g. CCM-HYD-2W01 or CCM-HYD-4W02">
+    <div class="header-badges">
+      <span class="badge badge-cyan">HOTLINE: +91 8333007351</span>
+      <span class="badge badge-amber" id="partner-role-badge">PARTNER CC 1010</span>
+      <button class="btn btn-outline" style="padding: 6px 12px;" onclick="partnerLogout()">Logout</button>
+    </div>
+  </header>
+
+  <!-- LOGIN CONTAINER -->
+  <div id="partner-login-view" class="container" style="max-width: 460px; margin-top: 60px;">
+    <div class="card" style="border-color: #00f0ff;">
+      <h2 style="color: #00f0ff; margin-top: 0; text-align: center;">Partner Authentication</h2>
+      <p style="color: #94a3b8; font-size: 0.9rem; text-align: center; margin-bottom: 24px;">
+        Enter your authorized Partner ID and confidential Garage Passcode to unlock job dispatches.
+      </p>
+      <div class="form-group">
+        <label>Partner ID</label>
+        <input type="text" id="partner-id-input" class="form-control" value="PARTNER-01" placeholder="e.g. PARTNER-01">
       </div>
-      <div class="field">
-        <label>Customer Tracking Passcode (Sent via SMS/WhatsApp)</label>
-        <div style="display:flex;gap:8px">
-          <input id="home-track-pass" value="786201" placeholder="Enter 6-digit Tracking Passcode">
-          <button type="button" class="primary" id="btn-home-track">Track Live Feed</button>
+      <div class="form-group">
+        <label>Garage Passcode</label>
+        <input type="password" id="partner-pass-input" class="form-control" placeholder="••••••••">
+      </div>
+      <div id="partner-login-err" style="color: #ef4444; font-size: 0.85rem; margin-bottom: 12px; display: none;">Invalid Partner Passcode. Please verify with Head Office.</div>
+      <button class="btn btn-primary" style="width: 100%; padding: 12px;" onclick="partnerLogin()">Authenticate & Open Terminal</button>
+    </div>
+  </div>
+
+  <!-- MAIN TERMINAL VIEW -->
+  <div id="partner-main-view" class="container" style="display: none;">
+    
+    <!-- AVAILABILITY & FLATBED TOGGLES -->
+    <div class="card">
+      <div class="card-title">Workshop Status & Free 10km Hydraulic Van Coordinator</div>
+      <div class="toggle-row">
+        <div id="workshop-avail-toggle" class="status-pill status-online" onclick="toggleWorkshopAvail()">
+          <span style="font-size: 1.2rem;">●</span> <span id="workshop-avail-text">Status: ONLINE (Accepting Jobs)</span>
+        </div>
+        <div id="flatbed-toggle" class="status-pill status-online" onclick="toggleFlatbed()">
+          <span>🚚</span> <span id="flatbed-text">Free 10km Hydraulic Flatbed: ON</span>
+        </div>
+        <div style="margin-left: auto; color: #94a3b8; font-size: 0.85rem;">
+          Workshop: <strong>CC Motocrafts Superbike & 4W Bay (Banjara Hills)</strong>
         </div>
       </div>
     </div>
-    <div id="home-tracking-display" style="margin-top:16px"></div>
-  </section>
 
-  <!-- GLOBAL MULTI-SERVICE EXPANSION (Competing with Justdial, Bro4u, Urban Company) -->
-  <section class="card full">
-    <div class="eyebrow">GLOBAL SUPER-APP ARCHITECTURE · TOP #1 ALL-IN-ONE ECOSYSTEM</div>
-    <h2>One Supreme Platform: 2-Wheeler + 4-Wheeler + All Urban Home Services</h2>
-    <p class="muted">Why maintain a 50-staff office like legacy directories (Justdial / Bro4u / Urban Company)? CC Motocrafts runs the entire ecosystem through our <strong>In-House AI Telemetry & 30-Year Master Supervision Network</strong>.</p>
-    <div class="grid" style="margin-bottom:0">
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchPartnerTab('jobs')">📋 Active Job Cards & Dispatches</button>
+      <button class="tab-btn" onclick="switchPartnerTab('profile')">🏢 One-Time Locked Shop Profile</button>
+      <button class="tab-btn" onclick="switchPartnerTab('invoice')">🧾 Dynamic GST Invoice Engine</button>
+    </div>
+
+    <!-- TAB 1: JOBS -->
+    <div id="tab-jobs">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="margin: 0; color: #f1f5f9;">Assigned Automotive Job Cards</h3>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-outline" id="filter-2w-btn" onclick="filterJobs('2w')">2-Wheeler (100cc–2500cc)</button>
+          <button class="btn btn-outline" id="filter-4w-btn" onclick="filterJobs('4w')">4-Wheeler (Cars/SUVs)</button>
+          <button class="btn btn-primary" onclick="filterJobs('all')">All Leads</button>
+        </div>
+      </div>
+
+      <!-- JOB 1 -->
+      <div class="job-card" data-category="2w">
+        <div class="job-header">
+          <div>
+            <span class="job-code">CCM-HYD-2W101</span>
+            <span class="badge badge-cyan" style="margin-left: 8px;">2W SUPERBIKE (100cc-2500cc)</span>
+          </div>
+          <div>
+            <span style="color: #10b981; font-weight: 700; font-size: 1.1rem;">₹1,850</span>
+          </div>
+        </div>
+        <div class="job-grid">
+          <div>
+            <div class="job-label">Vehicle Model</div>
+            <div class="job-val">KTM Duke 390 BS6 (373cc)</div>
+          </div>
+          <div>
+            <div class="job-label">Customer & Mobile</div>
+            <div class="job-val">Srinivas Rao (+91 98480XXXXX)</div>
+          </div>
+          <div>
+            <div class="job-label">Location / Area</div>
+            <div class="job-val">Road No. 12, Banjara Hills, Hyd (500034)</div>
+          </div>
+          <div>
+            <div class="job-label">Reported Issue</div>
+            <div class="job-val">Tappet knock at idle, low pickup, chain slack</div>
+          </div>
+          <div>
+            <div class="job-label">Odometer KM</div>
+            <div class="job-val">14,250 KM</div>
+          </div>
+          <div>
+            <div class="job-label">Service Master</div>
+            <div class="job-val">Ustad Abdul Kareem (30-Yr Master Tech)</div>
+          </div>
+        </div>
+        <div style="margin-top: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; border-top: 1px solid #233554; padding-top: 12px;">
+          <label style="color: #94a3b8; font-size: 0.85rem;">Update 6-Stage Telemetry:</label>
+          <select id="stage-select-1" class="form-control" style="width: auto; padding: 6px 12px;">
+            <option value="01 - Booked (Order Logged)">01 - Booked (Order Logged)</option>
+            <option value="02 - Hydraulic Van Dispatched">02 - Hydraulic Van Dispatched</option>
+            <option value="03 - Vehicle Reached Workshop">03 - Vehicle Reached Workshop</option>
+            <option value="04 - Diagnostic Video Sent on WhatsApp" selected>04 - Diagnostic Video Sent on WhatsApp</option>
+            <option value="05 - Precision Repair in Progress">05 - Precision Repair in Progress</option>
+            <option value="06 - Delivered with 6-Mo Warranty">06 - Delivered with 6-Mo Warranty</option>
+          </select>
+          <button class="btn btn-primary" onclick="updateJobStage('CCM-HYD-2W101', 'stage-select-1')">Sync Stage to Customer & WhatsApp</button>
+        </div>
+      </div>
+
+      <!-- JOB 2 -->
+      <div class="job-card" data-category="4w">
+        <div class="job-header">
+          <div>
+            <span class="job-code">CCM-HYD-4W552</span>
+            <span class="badge badge-amber" style="margin-left: 8px;">4W CAR / LUXURY FLEET</span>
+          </div>
+          <div>
+            <span style="color: #10b981; font-weight: 700; font-size: 1.1rem;">₹8,400</span>
+          </div>
+        </div>
+        <div class="job-grid">
+          <div>
+            <div class="job-label">Vehicle Model</div>
+            <div class="job-val">Hyundai Creta 1.5 DCT Turbo Petrol</div>
+          </div>
+          <div>
+            <div class="job-label">Customer & Mobile</div>
+            <div class="job-val">Ayesha Siddiqua (+91 83330XXXXX)</div>
+          </div>
+          <div>
+            <div class="job-label">Location / Area</div>
+            <div class="job-val">Madhapur, Hitec City Corridor, Hyd (500081)</div>
+          </div>
+          <div>
+            <div class="job-label">Reported Issue</div>
+            <div class="job-val">DCT transmission jerk in 2nd gear, AC cooling drop</div>
+          </div>
+          <div>
+            <div class="job-label">Odometer KM</div>
+            <div class="job-val">38,900 KM</div>
+          </div>
+          <div>
+            <div class="job-label">Service Master</div>
+            <div class="job-val">Master Imran Khan (22-Yr Automatic Transmission Head)</div>
+          </div>
+        </div>
+        <div style="margin-top: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; border-top: 1px solid #233554; padding-top: 12px;">
+          <label style="color: #94a3b8; font-size: 0.85rem;">Update 6-Stage Telemetry:</label>
+          <select id="stage-select-2" class="form-control" style="width: auto; padding: 6px 12px;">
+            <option value="01 - Booked (Order Logged)">01 - Booked (Order Logged)</option>
+            <option value="02 - Hydraulic Van Dispatched">02 - Hydraulic Van Dispatched</option>
+            <option value="03 - Vehicle Reached Workshop" selected>03 - Vehicle Reached Workshop</option>
+            <option value="04 - Diagnostic Video Sent on WhatsApp">04 - Diagnostic Video Sent on WhatsApp</option>
+            <option value="05 - Precision Repair in Progress">05 - Precision Repair in Progress</option>
+            <option value="06 - Delivered with 6-Mo Warranty">06 - Delivered with 6-Mo Warranty</option>
+          </select>
+          <button class="btn btn-primary" onclick="updateJobStage('CCM-HYD-4W552', 'stage-select-2')">Sync Stage to Customer & WhatsApp</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: PROFILE -->
+    <div id="tab-profile" style="display: none;">
       <div class="card">
-        <span class="pill green">01 · TWO-WHEELER MASTER</span>
-        <h3>Superbikes, Commuters & EVs</h3>
-        <p class="muted">Benelli, KTM, Royal Enfield, Yamaha VVA, Ducati Desmo, BMW ShiftCam, Triumph, Suzuki & Vespa CVT overhaul with doorstep hydraulic van pickup.</p>
-        <a class="btn primary" href="#booking-section" onclick="switchGlobalVehicleMode('2w')">Book 2-Wheeler Service</a>
-      </div>
-      <div class="card">
-        <span class="pill">02 · FOUR-WHEELER & LORRY</span>
-        <h3>Cars, SUVs & Commercial Fleet</h3>
-        <p class="muted">Automatic/DCT gearbox rebuild, HVAC AC overhaul, Hunter 3D laser alignment, OBD-II coding & hydraulic flatbed lorry recovery.</p>
-        <a class="btn primary" href="#booking-section" onclick="switchGlobalVehicleMode('4w')">Book 4-Wheeler Service</a>
-      </div>
-      <div class="card">
-        <span class="pill gold">03 · URBAN & HOME SERVICES</span>
-        <h3>AC, Plumber, Interior & Home Care</h3>
-        <p class="muted">Split/Window AC service, emergency plumbing, complete interior design & carpentry, electrical & deep home sanitization under one verified roof.</p>
-        <a class="btn gold" href="#pricing-section">Book Home / AC / Plumber / Interior</a>
-      </div>
-    </div>
-  </section>
-
-  
-  <!-- SHAIK MUJAHID OFFICIAL FRAMED CERTIFICATE, 3-STEP HYDERABAD TRANSIT & LIVE WORKSHOP VIDEO -->
-  <section class="card full">
-    <div class="eyebrow">AUTHORIZED MASTERY · 18 GLOBAL MANUFACTURERS (100cc COMMUTERS TO 2500cc POWERHOUSES & LUXURY 4W)</div>
-    <h2>Certified Excellence by Mr. Shaik Mujahid & 3-Step VIP Hyderabad Concierge</h2>
-    <div class="grid" style="margin-bottom:0">
-      <div class="card" style="grid-column:span 4">
-        <span class="pill gold">OFFICIAL MASTERY CERTIFICATE</span>
-        <img src="assets/portfolio/IMG-20261105-WA0004.jpg" onerror="this.onerror=null;this.src='IMG-20261105-WA0004.jpg'" alt="Certificate of Elite Technical Proficiency - Mr. Shaik Mujahid" style="width:100%;border-radius:10px;margin:8px 0">
-        <strong>Mr. Shaik Mujahid — CEO, Founder & Technical Head</strong>
-        <p class="muted" style="margin:4px 0 0">Certified across 18 Global Manufacturers (100cc Commuters to 2500cc Superbikes & Multi-Brand 4W Fleet) with up to 2 Years Extended Performance Warranty.</p>
-      </div>
-      <div class="card" style="grid-column:span 4">
-        <span class="pill green">3-STEP VIP CONCIERGE TRANSIT</span>
-        <img src="assets/portfolio/IMG-20261105-WA0027.jpg" onerror="this.onerror=null;this.src='IMG-20261105-WA0027.jpg'" alt="3-Step VIP Transit Carousel" style="width:100%;border-radius:10px;margin:8px 0">
-        <strong>1. Hydraulic Loading → 2. Covered Transit → 3. VIP Delivery</strong>
-        <p class="muted" style="margin:4px 0 0">VIP Hyderabad zones picked up in 35–45 mins; All Over Hyderabad in 45–60 mins with zero-damage wheel locks.</p>
-      </div>
-      <div class="card" style="grid-column:span 4">
-        <span class="pill"><span class="live-dot"></span> LIVE BAY & AI TELEMETRY VIDEO</span>
-        <video src="assets/portfolio/VID-20261105-WA0047.mp4" poster="assets/portfolio/IMG-20261105-WA0006.jpg" controls muted playsinline style="width:100%;max-height:220px;object-fit:cover;border-radius:10px;margin:8px 0;background:#000"></video>
-        <strong>Live Bay Video & Computerized Diagnostic Lab</strong>
-        <p class="muted" style="margin:4px 0 0">Watch live workshop bay operations and computerized OBD-II scanning right from your phone.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- URBAN COMPANY / BRO4U / JUSTDIAL STYLE MULTI-SERVICE EXPLORER -->
-  <section class="card full">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px">
-      <div>
-        <span class="eyebrow">EXPLORE ALL SERVICES · HYDERABAD SUPER-PLATFORM</span>
-        <h2 style="margin:4px 0 0">Instant Doorstep Booking: 2W · 4W · AC & Appliances · Home Maintenance</h2>
-      </div>
-      <input id="urban-service-search" placeholder="🔍 Search for Bike, Car, AC, CCTV, RO, Plumber, Geyser…" style="max-width:340px;background:#07121e;color:#fff;border:1px solid var(--cyan);border-radius:10px;padding:10px">
-    </div>
-    <div class="grid" id="urban-quick-grid" style="margin-bottom:0">
-      <div class="card" style="grid-column:span 3;padding:14px"><strong>❄️ AC Service & Gas Refill</strong><div class="muted">Split/Window AC Jet Wash & PCB</div><button type="button" class="btn primary" style="margin-top:8px;width:100%" onclick="openQuickBookingModal('urban','AC Service & Gas Refill')">Book @ ₹499</button></div>
-      <div class="card" style="grid-column:span 3;padding:14px"><strong>📹 CCTV Installation & Repair</strong><div class="muted">HD/IP Cameras, DVR & Mobile Sync</div><button type="button" class="btn primary" style="margin-top:8px;width:100%" onclick="openQuickBookingModal('urban','CCTV Installation & Repair')">Book @ ₹399</button></div>
-      <div class="card" style="grid-column:span 3;padding:14px"><strong>💧 Water Purifier (RO) & Geyser</strong><div class="muted">Filter Kit, Membrane & Heating Coil</div><button type="button" class="btn primary" style="margin-top:8px;width:100%" onclick="openQuickBookingModal('urban','Water Purifier RO & Geyser Repair')">Book @ ₹349</button></div>
-      <div class="card" style="grid-column:span 3;padding:14px"><strong>🧊 Refrigerator & Washing Machine</strong><div class="muted">Compressor, Drum & Inverter PCB</div><button type="button" class="btn primary" style="margin-top:8px;width:100%" onclick="openQuickBookingModal('urban','Refrigerator & Washing Machine Repair')">Book @ ₹399</button></div>
-      <div class="card" style="grid-column:span 3;padding:14px"><strong>🔧 Master Plumber & Electrician</strong><div class="muted">30-Min Express Doorstep Technicians</div><button type="button" class="btn primary" style="margin-top:8px;width:100%" onclick="openQuickBookingModal('urban','Master Plumber & Electrician')">Book @ ₹299</button></div>
-      <div class="card" style="grid-column:span 3;padding:14px"><strong>🛋️ Interior Design & Carpenter</strong><div class="muted">Modular Woodwork, Painting & Decor</div><button type="button" class="btn primary" style="margin-top:8px;width:100%" onclick="openQuickBookingModal('urban','Interior Design & Carpentry')">Book Visit</button></div>
-      <div class="card" style="grid-column:span 3;padding:14px"><strong>📺 LED/LCD TV, Inverter & Computer</strong><div class="muted">Board Repair, Battery & Laptop Care</div><button type="button" class="btn primary" style="margin-top:8px;width:100%" onclick="openQuickBookingModal('urban','TV, Inverter & Computer Service')">Book @ ₹399</button></div>
-      <div class="card" style="grid-column:span 3;padding:14px"><strong>✨ Home Deep Cleaning & Salon</strong><div class="muted">Full Villa/Flat Sanitization & Care</div><button type="button" class="btn primary" style="margin-top:8px;width:100%" onclick="openQuickBookingModal('urban','Home Deep Cleaning Service')">Book @ ₹999</button></div>
-    </div>
-  </section>
-
-  <!-- INSTANT BOOKING MODAL (In-Page Zero-Latency Popup) -->
-  <div id="quick-booking-modal" style="display:none;position:fixed;inset:0;background:rgba(3,9,16,0.85);z-index:100;align-items:center;justify-content:center;padding:16px">
-    <div class="card" style="max-width:540px;width:100%;border:2px solid var(--cyan)">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-        <span class="pill gold" id="qb-badge">INSTANT BOOKING MODAL</span>
-        <button type="button" class="btn" onclick="document.getElementById('quick-booking-modal').style.display='none'">✕ Close</button>
-      </div>
-      <h3 id="qb-title" style="margin:0 0 10px">Book Service</h3>
-      <form id="qb-form" class="form-grid">
-        <input type="hidden" id="qb-type" value="2w">
-        <div class="field"><label>Your Name *</label><input id="qb-name" required value="Customer"></div>
-        <div class="field"><label>Mobile Number (WhatsApp/SMS) *</label><input id="qb-phone" required value="+91 9848011223"></div>
-        <div class="field"><label>Vehicle / Unit Details *</label><input id="qb-veh" required value="KTM Duke 390 BS6 (2W 100cc–2500cc)"></div>
-        <div class="field"><label>Hyderabad PIN Code *</label><input id="qb-pin" required value="500034" maxlength="6"></div>
-        <div class="field full"><label>Pickup / Doorstep Address *</label><input id="qb-addr" required value="Banjara Hills, Hyderabad"></div>
-        <div class="field full"><button type="submit" class="primary" style="width:100%">✅ Confirm Instant Booking & Trigger WhatsApp (+91 8333007351)</button></div>
-      </form>
-      <div id="qb-result" style="display:none;margin-top:10px"></div>
-    </div>
-  </div>
-
-  <!-- SMART 5-STAR REVIEW ROUTER (Negative 1-3 Stars -> Direct WhatsApp +91 8333007351) -->
-  <section class="card full" id="smart-review-router">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
-      <div>
-        <span class="eyebrow">SMART 5-STAR REVIEW ROUTER · REPUTATION PROTECTION ENGINE</span>
-        <h2 style="margin:4px 0 0">Rate Your CC Motocrafts Service Experience</h2>
-        <p class="muted" style="margin:4px 0 0">5-Star & 4-Star ratings publish to our Verified Public Showcase. 1-to-3 Star feedback automatically routes privately to <strong>Supreme Owner Resolution WhatsApp (+91 8333007351)</strong> for immediate priority resolution.</p>
-      </div>
-      <div class="actions" style="margin:0" id="star-rating-buttons">
-        <button type="button" class="btn" data-star="1">⭐ 1</button>
-        <button type="button" class="btn" data-star="2">⭐⭐ 2</button>
-        <button type="button" class="btn" data-star="3">⭐⭐⭐ 3</button>
-        <button type="button" class="btn" data-star="4">⭐⭐⭐⭐ 4</button>
-        <button type="button" class="btn gold" data-star="5">⭐⭐⭐⭐⭐ 5 Stars</button>
-      </div>
-    </div>
-    <div class="form-grid">
-      <div class="field">
-        <label>Customer Name</label>
-        <input id="rev-name" value="Vikram Aditya" placeholder="Your Name">
-      </div>
-      <div class="field">
-        <label>Vehicle Serviced</label>
-        <input id="rev-vehicle" value="KTM Duke 390 BS6 (2W 100cc–2500cc)" placeholder="Bike or Car Model">
-      </div>
-      <div class="field full">
-        <label>Your Feedback / Review</label>
-        <input id="rev-comment" value="Zero-wait pickup and top-notch master technician work with full 1-year digital warranty!" placeholder="Share your experience…">
-      </div>
-    </div>
-    <div class="actions">
-      <button type="button" class="primary" id="btn-submit-review">Submit Rating via Smart Review Router</button>
-    </div>
-    <div id="review-router-output" style="display:none;margin-top:12px"></div>
-  </section>
-
-  <section class="card full" id="portfolio-section">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px">
-      <div>
-        <h2>Verified Master Engineering & Transit Fleet Portfolio (35 Live Assets)</h2>
-        <p class="muted" style="margin:0">Zero-latency rendering of all 2-Wheeler, 4-Wheeler, Hydraulic Lift, and Pickup/Drop Transit systems.</p>
-      </div>
-      <div class="actions" style="margin:0">
-        <button type="button" id="show-all" class="primary">All Custom Cards (47)</button>
-        <button type="button" id="show-2w">🏍️ 2-Wheeler Only (100cc–2500cc)</button>
-        <button type="button" id="show-4w">🚘 4-Wheeler Only (Cars/SUVs/Fleet)</button>
-      </div>
-    </div>
-    <div id="portfolio-grid" class="grid"></div>
-  </section>
-  </div>
-</div>
-
-<footer class="footer">
-  <div class="wrap" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
-    <div><strong>CC MOTOCRAFTS GLOBAL PLATFORM v1.0</strong> · Hyderabad Master Command · 24/7 Dispatch: <a href="tel:+918333007351">+91 8333007351</a></div>
-    <div>Multi-Channel Triggers: <a href="mailto:info@ccmotocrafts.in">info@ccmotocrafts.in</a> · <a href="mailto:aisupport.on@gmail.com">aisupport.on@gmail.com</a></div>
-  </div>
-</footer>
-
-<script src="app.js"></script>
-<script>
-const PORTFOLIO_ITEMS = [
-  { file: "assets/portfolio/IMG-20261105-WA0000.jpg", type: "4w", label: "WA0000 · 4W Supercar Telemetry & Computerized Diagnostic Bay", price: "₹2,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0001.jpg", type: "2w", label: "WA0001 · 2W Vespa & Gearless Scooter CVT Hydraulic Lift Service", price: "₹1,199" },
-  { file: "assets/portfolio/IMG-20261105-WA0002.jpg", type: "2w", label: "WA0002 · 2W Adventure Tourer & Superbike Multi-Point Bay", price: "₹1,899" },
-  { file: "assets/portfolio/IMG-20261105-WA0003.jpg", type: "4w", label: "WA0003 · 4W Step 1: Precision Hydraulic Flatbed Ramp Loading", price: "₹999 Flatbed" },
-  { file: "assets/portfolio/IMG-20261105-WA0004.jpg", type: "2w", label: "WA0004 · Shaik Mujahid Official Mastery Certificate (18 Global Brands)", price: "Certified" },
-  { file: "assets/portfolio/IMG-20261105-WA0005.jpg", type: "2w", label: "WA0005 · 2W Maxi-Scooter CVT & Liquid-Cooling Calibration", price: "₹1,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0006.jpg", type: "2w", label: "WA0006 · 2W CC Motocrafts AI Lab Mobile Diagnostic Unit-01 Van", price: "₹499 Pickup" },
-  { file: "assets/portfolio/IMG-20261105-WA0007.jpg", type: "2w", label: "WA0007 · 2W Performance Tuning Solutions — ECU Remap & Dyno", price: "₹2,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0008.jpg", type: "2w", label: "WA0008 · 2W Mobile App Live Telemetry & Digital Bay Preview", price: "Live App" },
-  { file: "assets/portfolio/IMG-20261105-WA0009.jpg", type: "4w", label: "WA0009 · 4W Luxury Sedan Computerized Engine & Laser Diagnostics", price: "₹2,999" },
-  { file: "assets/portfolio/IMG-20261105-WA0010.jpg", type: "4w", label: "WA0010 · 4W Suspension & Ride Comfort — Strut & Steering Rack", price: "₹2,999" },
-  { file: "assets/portfolio/IMG-20261105-WA0011.jpg", type: "2w", label: "WA0011 · 2W Commuter & Sports Naked Hydraulic Lift Service", price: "₹999" },
-  { file: "assets/portfolio/IMG-20261105-WA0012.jpg", type: "4w", label: "WA0012 · 4W Automatic / DCT Gearbox Hydraulic Pressure Audit", price: "₹4,999" },
-  { file: "assets/portfolio/IMG-20261105-WA0013.jpg", type: "2w", label: "WA0013 · 2W Ducati & Superbike Desmo Valve & Frame Service", price: "₹3,999" },
-  { file: "assets/portfolio/IMG-20261105-WA0014.jpg", type: "4w", label: "WA0014 · 4W Precision Engine Rebuild Lab — Block Boring & Pistons", price: "₹14,999" },
-  { file: "assets/portfolio/IMG-20261105-WA0015.jpg", type: "2w", label: "WA0015 · 2W Superbike AI Vibration & Sensor Telemetry HUD", price: "₹1,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0016.jpg", type: "2w", label: "WA0016 · 2W Zero-Damage Transport Protocol — Van Wheel Lock", price: "₹499 Transit" },
-  { file: "assets/portfolio/IMG-20261105-WA0017.jpg", type: "2w", label: "WA0017 · 2W Step 01: Doorstep Digital Tablet Inspection", price: "₹399 Intake" },
-  { file: "assets/portfolio/IMG-20261105-WA0018.jpg", type: "2w", label: "WA0018 · 2W Scrambler Starting, Battery & Check-Engine Scan", price: "₹1,299" },
-  { file: "assets/portfolio/IMG-20261105-WA0019.jpg", type: "4w", label: "WA0019 · 4W Bi-Directional OBD-II Live ECU & BCM Fault Audit", price: "₹1,199" },
-  { file: "assets/portfolio/IMG-20261105-WA0020.jpg", type: "4w", label: "WA0020 · 4W Precision Braking System — Rotor & ABS Bleeding", price: "₹1,999" },
-  { file: "assets/portfolio/IMG-20261105-WA0021.jpg", type: "2w", label: "WA0021 · 2W Superbike Front Fork, Brembo Brake & Laser Setup", price: "₹2,199" },
-  { file: "assets/portfolio/IMG-20261105-WA0022.jpg", type: "2w", label: "WA0022 · 2W Kawasaki Ninja Superbike Engine & Cooling Overhaul", price: "₹2,999" },
-  { file: "assets/portfolio/IMG-20261105-WA0023.jpg", type: "2w", label: "WA0023 · 2W Multi-Brand High-Bay Lift & Torque Calibration", price: "₹1,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0024.jpg", type: "4w", label: "WA0024 · 4W Precision Door Panel & Structural Laser Alignment", price: "₹2,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0025.jpg", type: "2w", label: "WA0025 · 2W 30-Yr Master Tech Micrometer Piston & Block Rebuild", price: "₹4,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0026.jpg", type: "2w", label: "WA0026 · 2W Royal Enfield Classic Complete Engine Restoration", price: "₹1,799" },
-  { file: "assets/portfolio/IMG-20261105-WA0027.jpg", type: "4w", label: "WA0027 · 4W VIP Transit Carousel: Loading → Transit → Delivery", price: "VIP Concierge" },
-  { file: "assets/portfolio/IMG-20261105-WA0028.jpg", type: "4w", label: "WA0028 · 4W Computerized Diagnostic Scan — 0-Error CAN-Bus", price: "₹999" },
-  { file: "assets/portfolio/IMG-20261105-WA0029.jpg", type: "4w", label: "WA0029 · 4W Fuel Injection System Tuning — Ultrasonic Bench", price: "₹2,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0030.jpg", type: "4w", label: "WA0030 · 4W Transmission Overhaul Specialist — Clutch & Gearbox", price: "₹8,999" },
-  { file: "assets/portfolio/IMG-20261105-WA0031.jpg", type: "2w", label: "WA0031 · 2W Naked Streetfighter ECU Telemetry & Throttle Sync", price: "₹1,999" },
-  { file: "assets/portfolio/IMG-20261105-WA0032.jpg", type: "2w", label: "WA0032 · 2W Heavy Cruiser & 2500cc Powerhouse Master Bay", price: "₹3,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0033.jpg", type: "4w", label: "WA0033 · 4W Step 2: Safe & Secure Flatbed Transit in Hyderabad", price: "₹999 Transit" },
-  { file: "assets/portfolio/IMG-20261105-WA0034.jpg", type: "4w", label: "WA0034 · 4W Bosch Underbody & Brake Caliper Micrometer Audit", price: "₹1,999" },
-  { file: "assets/portfolio/IMG-20261105-WA0035.jpg", type: "4w", label: "WA0035 · 4W Digital Torque-Wrench Cylinder Head Assembly", price: "₹7,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0036.jpg", type: "2w", label: "WA0036 · 2W Royal Enfield Hunter / Twins Drivetrain & Clutch", price: "₹1,599" },
-  { file: "assets/portfolio/IMG-20261105-WA0037.jpg", type: "4w", label: "WA0037 · 4W Precision Bodywork & Denting — High-Gloss Paint", price: "₹3,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0038.jpg", type: "2w", label: "WA0038 · 2W KTM WP Apex Suspension & Tappet Clearance Lab", price: "₹1,899" },
-  { file: "assets/portfolio/IMG-20261105-WA0039.jpg", type: "4w", label: "WA0039 · 4W Climate Control & AC Overhaul — Compressor & Gas", price: "₹2,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0040.jpg", type: "4w", label: "WA0040 · 4W 2-Post Hydraulic Lift Strut & Coil Spring Overhaul", price: "₹2,799" },
-  { file: "assets/portfolio/IMG-20261105-WA0041.jpg", type: "4w", label: "WA0041 · 4W Hunter 3D Laser 4-Wheel Alignment & Camber Setup", price: "₹1,299" },
-  { file: "assets/portfolio/IMG-20261105-WA0042.jpg", type: "2w", label: "WA0042 · 2W Superbike Dual-Tech Bay — Electrical & ECU Sensors", price: "₹2,299" },
-  { file: "assets/portfolio/IMG-20261105-WA0043.jpg", type: "4w", label: "WA0043 · 4W Dual-Tech Transmission & Engine Block Calibration", price: "₹6,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0044.jpg", type: "4w", label: "WA0044 · 4W Head & Valve Precision Care — Valve Seat Lapping", price: "₹6,999" },
-  { file: "assets/portfolio/IMG-20261105-WA0045.jpg", type: "4w", label: "WA0045 · 4W 40-Point Pre-Delivery Inspection & Quality Audit", price: "₹1,499" },
-  { file: "assets/portfolio/IMG-20261105-WA0046.jpg", type: "2w", label: "WA0046 · 2W Royal Enfield Himalayan Fork & Laser Chain Alignment", price: "₹1,899" }
-];
-
-function renderPortfolio(filter) {
-  const grid = document.getElementById('portfolio-grid');
-  if (!grid) return;
-  const list = PORTFOLIO_ITEMS.filter(x => filter === 'all' || x.type === filter);
-  grid.innerHTML = list.map((x, idx) => `
-    <div class="card" style="grid-column:span 3;padding:12px;display:flex;flex-direction:column;justify-content:space-between">
-      <div>
-        <img src="${x.file}" onerror="this.onerror=null;this.src=this.src.split('/').pop()" alt="${x.label}" style="width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;margin-bottom:8px">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
-          <span class="pill ${x.type === '2w' ? 'green' : ''}">${x.type === '2w' ? '🏍️ 2-WHEELER' : '🚘 4-WHEELER'}</span>
-          <span class="pill gold">${x.price || 'Verified'}</span>
-        </div>
-        <strong style="font-size:13.5px;display:block;margin-bottom:8px">${x.label}</strong>
-      </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <button type="button" class="primary" style="flex:1;padding:8px 10px;min-height:36px;font-size:12px" onclick="openQuickBookingModal('${x.type}', '${x.label.replace(/'/g, '')}')">⚡ Book Now</button>
-        <a class="btn green" style="padding:8px 10px;min-height:36px;font-size:12px" href="https://wa.me/918333007351?text=${encodeURIComponent('Hi CC Motocrafts, I want to book: ' + x.label)}" target="_blank" rel="noopener">💬 WhatsApp</a>
-      </div>
-    </div>
-  `).join('');
-}
-
-function renderHomeTracker() {
-  const st = loadState();
-  const promo = document.getElementById('hero-promo-banner');
-  if (promo) promo.textContent = st.marketingBanner;
-
-  const code = (document.getElementById('home-track-code').value || '').trim().toUpperCase();
-  const pass = (document.getElementById('home-track-pass').value || '').trim();
-  const out = document.getElementById('home-tracking-display');
-  if (!out) return;
-
-  if (!isInternetActive()) {
-    out.innerHTML = `<div class="locked-banner"><div>🚨 <strong>INTERNET DEPENDENCY LOCKOUT ACTIVE</strong><br>Active internet sync is required for live GPS transit & bay camera streams. Connection dropped — access immediately locked out.</div><span class="pill red">LOCKED OUT</span></div>`;
-    return;
-  }
-
-  if (st.masterKillSwitch) {
-    out.innerHTML = `<div class="locked-banner"><div>🔒 <strong>MASTER OWNER STREAM KILL-SWITCH ENGAGED</strong><br>Supreme Owner (owner.html) has terminated active live camera & telemetry streams.</div><span class="pill red">STREAM LOCKED</span></div>`;
-    return;
-  }
-
-  const booking = st.bookings.find(b => b.booking_code.toUpperCase() === code || (b.registration_no || '').toUpperCase() === code) || st.bookings[0];
-  if (pass !== booking.tracking_passcode && !verifyOwnerKey(pass)) {
-    out.innerHTML = `<div class="notice warn">Enter the valid 6-digit Customer Tracking Passcode (Demo: <strong>${booking.tracking_passcode}</strong>) to unlock live GPS & Bay feed for <strong>${booking.booking_code}</strong>.</div>`;
-    return;
-  }
-
-  if (st.secBufferActive || booking.camera_paused) {
-    out.innerHTML = `
-      <div class="sec-buffer">
-        <div class="pill gold" style="margin-bottom:8px">PROTOCOL CODE: SEC-DEV-412 · OPERATIONAL BUFFER ACTIVE</div>
-        <h3 style="margin:6px 0;color:#fff">${st.secBufferReason}</h3>
-        <p style="margin:4px 0;font-size:13px">Bay & Transit camera stream is performing encrypted high-definition telemetry synchronization. Estimated auto-resume window: <strong>${st.secBufferWindow}</strong>.</p>
-        <div style="margin-top:10px;font-size:12px;color:#9cecff">Booking: ${booking.booking_code} · Vehicle: ${booking.brand} ${booking.model} · Stage: ${booking.stage.toUpperCase()}</div>
-      </div>
-    `;
-    return;
-  }
-
-  const is2W = booking.vehicle_type === '2w';
-  const transitImg = is2W ? 'hero_2w_mobile_van.jpg' : 'hero_4w_flatbed_loading.jpg';
-  const bayImg = is2W ? 'hero_2w_telemetry_bike.jpg' : 'hero_4w_supercar_lab.jpg';
-  const sixStages = ['Booked', 'Van Dispatched', 'Reached Workshop', 'Diagnostic Video Sent', 'Repairing', 'Delivered'];
-  const curStg = booking.telemetry_stage || booking.stage || 'Booked';
-  const stgIdx = Math.max(0, sixStages.findIndex(s => s.toLowerCase() === String(curStg).toLowerCase()));
-
-  out.innerHTML = `
-    <div class="card full" style="background:#061422;border:1px solid var(--cyan);margin-bottom:12px;padding:12px">
-      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:10px">
-        <strong>🛰️ 6-Stage Live Telemetry Progress: ${booking.booking_code} (${booking.brand} ${booking.model} · ${booking.odometer_km || 15000} KM)</strong>
-        <span class="pill gold">Passcode: ${booking.tracking_passcode} · Stage: ${sixStages[stgIdx]}</span>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:6px">
-        ${sixStages.map((sName, i) => `
-          <div style="padding:8px;border-radius:8px;background:${i <= stgIdx ? 'rgba(0,230,118,0.18)' : '#081828'};border:1px solid ${i === stgIdx ? 'var(--gold)' : (i < stgIdx ? 'var(--green)' : 'var(--line)')}">
-            <div style="font-size:11px;font-weight:800;color:${i <= stgIdx ? '#00e676' : 'var(--muted)'}">STEP 0${i+1}</div>
-            <div style="font-size:12.5px;font-weight:700;color:#fff;margin-top:2px">${sName}</div>
+        <div class="card-title">Locked Workshop KYC & Statutory Licenses (Verified by Head Office)</div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
+          <div class="form-group">
+            <label>Shop GSTIN Number</label>
+            <input type="text" class="form-control" value="36AABCC7890M1ZS" readonly style="background: #111a2e;">
           </div>
-        `).join('')}
+          <div class="form-group">
+            <label>Shop Trade License Number</label>
+            <input type="text" class="form-control" value="GHMC-TRD-2026-89412" readonly style="background: #111a2e;">
+          </div>
+          <div class="form-group">
+            <label>Shop Aadhaar KYC</label>
+            <input type="text" class="form-control" value="XXXX-XXXX-7890 (Verified & Secured)" readonly style="background: #111a2e;">
+          </div>
+          <div class="form-group">
+            <label>Shop PAN Card Number</label>
+            <input type="text" class="form-control" value="AABCC7890M" readonly style="background: #111a2e;">
+          </div>
+          <div class="form-group" style="grid-column: 1 / -1;">
+            <label>Registered Workshop Address</label>
+            <input type="text" class="form-control" value="CC Motocrafts Superbike & 4W Master Bay, Road No. 12, Banjara Hills, Hyderabad - 500034" readonly style="background: #111a2e;">
+          </div>
+        </div>
+        <div style="margin-top: 16px;">
+          <button class="btn btn-primary" onclick="printTechnicianBadge()">🪪 Print Verified Technician ID Card</button>
+        </div>
       </div>
     </div>
-    <div class="grid" style="margin:0">
-      <div class="card half" style="background:#081624">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <span class="pill green"><span class="live-dot"></span> LIVE PICKUP / DROP GPS TRANSIT</span>
-          <span class="pill gold">${booking.dispatch_eta}</span>
+
+    <!-- TAB 3: INVOICE ENGINE -->
+    <div id="tab-invoice" style="display: none;">
+      <div class="card">
+        <div class="card-title">Dynamic GST Invoice Generator & Real-Time Toggles</div>
+        
+        <!-- TOGGLES -->
+        <div style="display: flex; gap: 16px; flex-wrap: wrap; background: #070d17; padding: 14px; border-radius: 8px; margin-bottom: 20px;">
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #cbd5e1; font-size: 0.9rem;">
+            <input type="checkbox" id="toggle-gst" checked onchange="renderInvoicePreview()"> Enable 18% GST (9% CGST + 9% SGST)
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #cbd5e1; font-size: 0.9rem;">
+            <input type="checkbox" id="toggle-trade" checked onchange="renderInvoicePreview()"> Enable Trade License Badge
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #cbd5e1; font-size: 0.9rem;">
+            <input type="checkbox" id="toggle-aadhaar" checked onchange="renderInvoicePreview()"> Enable Shop Aadhaar & PAN KYC
+          </label>
+          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #cbd5e1; font-size: 0.9rem;">
+            <input type="checkbox" id="toggle-warranty" checked onchange="renderInvoicePreview()"> Enable 6-Month Written Warranty Seal
+          </label>
         </div>
-        <img src="${transitImg}" onerror="this.onerror=null;this.src='tw_15_doorstep_ramp.jpg'" style="width:100%;height:190px;object-fit:cover;border-radius:10px;margin-bottom:10px" alt="Transit Vehicle">
-        <strong>${is2W ? '2W Hydraulic Ramp Van #HYD-01' : '4W Hydraulic Flatbed Lorry #HYD-04'} — ${booking.booking_code}</strong>
-        <div class="muted" style="margin-top:4px">Customer: ${booking.customer_name} · Route: ${booking.address} (${booking.pincode}) → ${booking.garage_name}</div>
-      </div>
-      <div class="card half" style="background:#081624">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <span class="pill"><span class="live-dot"></span> LIVE WORKSHOP BAY STREAM</span>
-          <span class="pill">STAGE: ${booking.stage.toUpperCase()}</span>
+
+        <!-- INVOICE PREVIEW -->
+        <div id="invoice-preview-box" style="background: white; color: #0f172a; border-radius: 10px; padding: 24px; font-family: monospace;">
+          <!-- Content rendered by JS -->
         </div>
-        <img src="${bayImg}" style="width:100%;height:190px;object-fit:cover;border-radius:10px;margin-bottom:10px" alt="Live Bay">
-        <strong>${booking.brand} ${booking.model} (${booking.registration_no || 'Registered'})</strong>
-        <div class="muted" style="margin-top:4px">${booking.service_type} · ${booking.warranty}</div>
+
+        <div style="margin-top: 20px; display: flex; gap: 12px;">
+          <button class="btn btn-primary" onclick="printInvoicePDF()">🖨️ Print / Save Official PDF Invoice</button>
+          <button class="btn btn-success" onclick="shareInvoiceWhatsApp()">📲 Send Invoice to Customer WhatsApp</button>
+        </div>
       </div>
     </div>
-  `;
-}
 
-window.onCcmStateChange = renderHomeTracker;
-document.addEventListener('DOMContentLoaded', () => {
-  renderPortfolio('2w');
-  document.getElementById('show-all').onclick = () => renderPortfolio('all');
-  document.getElementById('show-2w').onclick = () => { renderPortfolio('2w'); const rv=document.getElementById('rev-vehicle'); if(rv) rv.value='KTM Duke 390 BS6 (2W)'; };
-  document.getElementById('show-4w').onclick = () => { renderPortfolio('4w'); const rv=document.getElementById('rev-vehicle'); if(rv) rv.value='Hyundai Creta 1.5 DCT (4W)'; };
-  document.getElementById('btn-home-track').onclick = renderHomeTracker;
-  document.getElementById('demo-track-2w').onclick = () => {
-    document.getElementById('home-track-code').value = 'CCM-HYD-2W01';
-    document.getElementById('home-track-pass').value = '786201';
-    renderHomeTracker();
-  };
-  document.getElementById('demo-track-4w').onclick = () => {
-    document.getElementById('home-track-code').value = 'CCM-HYD-4W02';
-    document.getElementById('home-track-pass').value = '786402';
-    renderHomeTracker();
-  };
-  renderHomeTracker();
+  </div>
 
-  let selectedStars = 5;
-  const starBox = document.getElementById('star-rating-buttons');
-  if (starBox) {
-    starBox.addEventListener('click', (e) => {
-      const b = e.target.closest('[data-star]');
-      if (!b) return;
-      selectedStars = Number(b.dataset.star);
-      starBox.querySelectorAll('[data-star]').forEach(btn => {
-        btn.className = Number(btn.dataset.star) === selectedStars ? 'btn gold' : 'btn';
-      });
-    });
-  }
-  const revBtn = document.getElementById('btn-submit-review');
-  if (revBtn) {
-    revBtn.onclick = () => {
-      const rName = document.getElementById('rev-name').value || 'Valued Customer';
-      const rVeh = document.getElementById('rev-vehicle').value || 'Vehicle';
-      const rCom = document.getElementById('rev-comment').value || '';
-      const out = document.getElementById('review-router-output');
-      out.style.display = 'block';
-      if (selectedStars >= 4) {
-        out.innerHTML = `<div class="notice good">🌟 <strong>Thank You for Your ${selectedStars}-Star Rating, ${rName}!</strong><br>Your positive review for <strong>${rVeh}</strong> has been published to our Public 5-Star Showcase & Google Business Profile!</div>`;
+  <script>
+    // Authentication State
+    function partnerLogin() {
+      const pass = document.getElementById('partner-pass-input').value.trim();
+      if (pass === 'CC1010' || pass === 'CC105' || pass === '000786000') {
+        localStorage.setItem('ccm_partner_auth', 'true');
+        localStorage.setItem('ccm_partner_id', document.getElementById('partner-id-input').value.trim());
+        showTerminal();
       } else {
-        const waText = encodeURIComponent(`*PRIORITY VIP ESCALATION (${selectedStars}-STAR FEEDBACK)*\nCustomer: ${rName}\nVehicle: ${rVeh}\nFeedback: ${rCom}\nRouted directly to Supreme Resolution Desk.`);
-        out.innerHTML = `<div class="notice warn">🛡️ <strong>Private VIP Escalation Activated (${selectedStars}-Star Feedback Intercepted)</strong><br>Instead of public posting, your concern is routed directly to our Supreme Owner Resolution Desk on WhatsApp (+91 8333007351) for immediate rectification:<div class="actions"><a class="btn green" href="https://wa.me/918333007351?text=${waText}" target="_blank" rel="noopener">📲 Send Direct to Resolution WhatsApp (+91 8333007351)</a></div></div>`;
+        document.getElementById('partner-login-err').style.display = 'block';
       }
-    };
-  }
+    }
 
-});
-</script>
+    function partnerLogout() {
+      localStorage.removeItem('ccm_partner_auth');
+      location.reload();
+    }
+
+    function showTerminal() {
+      document.getElementById('partner-login-view').style.display = 'none';
+      document.getElementById('partner-main-view').style.display = 'block';
+      renderInvoicePreview();
+    }
+
+    // Availability Toggle
+    let isOnline = true;
+    function toggleWorkshopAvail() {
+      isOnline = !isOnline;
+      const el = document.getElementById('workshop-avail-toggle');
+      const txt = document.getElementById('workshop-avail-text');
+      if (isOnline) {
+        el.className = 'status-pill status-online';
+        txt.textContent = 'Status: ONLINE (Accepting Jobs)';
+      } else {
+        el.className = 'status-pill status-offline';
+        txt.textContent = 'Status: OFFLINE (Dispatches Paused)';
+      }
+    }
+
+    let isFlatbedOn = true;
+    function toggleFlatbed() {
+      isFlatbedOn = !isFlatbedOn;
+      const el = document.getElementById('flatbed-toggle');
+      const txt = document.getElementById('flatbed-text');
+      if (isFlatbedOn) {
+        el.className = 'status-pill status-online';
+        txt.textContent = 'Free 10km Hydraulic Flatbed: ON';
+      } else {
+        el.className = 'status-pill status-offline';
+        txt.textContent = 'Free 10km Hydraulic Flatbed: PAUSED';
+      }
+    }
+
+    // Tabs
+    function switchPartnerTab(tab) {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById('tab-jobs').style.display = tab === 'jobs' ? 'block' : 'none';
+      document.getElementById('tab-profile').style.display = tab === 'profile' ? 'block' : 'none';
+      document.getElementById('tab-invoice').style.display = tab === 'invoice' ? 'block' : 'none';
+      event.target.classList.add('active');
+    }
+
+    // Job Filters
+    function filterJobs(cat) {
+      document.querySelectorAll('.job-card').forEach(c => {
+        if (cat === 'all' || c.getAttribute('data-category') === cat) {
+          c.style.display = 'block';
+        } else {
+          c.style.display = 'none';
+        }
+      });
+    }
+
+    // Stage update
+    function updateJobStage(code, selectId) {
+      const stage = document.getElementById(selectId).value;
+      alert(`Stage for ${code} successfully updated to:
+"${stage}"
+
+Customer Telemetry & Dual-Gmail sync triggered!`);
+    }
+
+    // Print Technician Card
+    function printTechnicianBadge() {
+      const win = window.open('', '_blank', 'width=600,height=500');
+      win.document.write(`
+        <html><head><title>Technician ID Card</title>
+        <style>
+          body { font-family: sans-serif; background: #070b12; color: #fff; padding: 24px; text-align: center; }
+          .badge-box { border: 2px solid #00f0ff; border-radius: 12px; padding: 20px; max-width: 360px; margin: 0 auto; background: #0f172a; }
+          .photo-ph { width: 100px; height: 100px; border-radius: 50%; background: #1e293b; margin: 0 auto 12px; border: 2px solid #00f0ff; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+        </style></head><body>
+          <div class="badge-box">
+            <div style="font-weight: 800; color: #00f0ff; margin-bottom: 4px;">CC MOTOCRAFTS HYDERABAD</div>
+            <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 16px;">AUTHORIZED MASTER TECHNICIAN</div>
+            <div class="photo-ph">👨‍🔧</div>
+            <h3 style="margin: 0; color: #fff;">Ustad Abdul Kareem</h3>
+            <div style="color: #00f0ff; font-weight: 600; font-size: 0.85rem; margin-bottom: 12px;">30-Yr Superbike & Transmission Master</div>
+            <div style="font-size: 0.8rem; color: #94a3b8; text-align: left; line-height: 1.6; border-top: 1px solid #334155; padding-top: 12px;">
+              <div>Tech ID: <strong>CCM-TECH-01</strong></div>
+              <div>Trade License: <strong>GHMC-TRD-2026-89412</strong></div>
+              <div>Aadhaar KYC: <strong>XXXX-XXXX-7890 (Verified)</strong></div>
+              <div>Security Clearance: <strong>SUPREME OWNER AUDITED</strong></div>
+            </div>
+            <button onclick="window.print()" style="margin-top: 16px; padding: 8px 16px; background: #00f0ff; color: #000; border: none; font-weight: bold; border-radius: 6px; cursor: pointer;">Print ID Card</button>
+          </div>
+        </body></html>
+      `);
+      win.document.close();
+    }
+
+    // Dynamic Invoice Rendering
+    function renderInvoicePreview() {
+      const gstOn = document.getElementById('toggle-gst')?.checked ?? true;
+      const tradeOn = document.getElementById('toggle-trade')?.checked ?? true;
+      const aadhaarOn = document.getElementById('toggle-aadhaar')?.checked ?? true;
+      const warrantyOn = document.getElementById('toggle-warranty')?.checked ?? true;
+
+      const baseAmount = 1850;
+      const cgst = gstOn ? Math.round(baseAmount * 0.09) : 0;
+      const sgst = gstOn ? Math.round(baseAmount * 0.09) : 0;
+      const total = baseAmount + cgst + sgst;
+
+      const box = document.getElementById('invoice-preview-box');
+      if (!box) return;
+
+      box.innerHTML = `
+        <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #0f172a; padding-bottom: 12px; margin-bottom: 12px;">
+          <div>
+            <h2 style="margin: 0; color: #0f172a;">CC MOTOCRAFTS</h2>
+            <div style="font-size: 0.8rem; color: #475569;">Superbike & 4W Precision Labs (Road No. 12, Banjara Hills, Hyd)</div>
+            <div style="font-size: 0.8rem; color: #475569;">Central Hotline: +91 8333007351</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-weight: 700; font-size: 1.1rem;">TAX INVOICE</div>
+            <div style="font-size: 0.8rem;">INV-CCM-HYD-2W101</div>
+            <div style="font-size: 0.8rem;">Date: ${new Date().toLocaleDateString('en-IN')}</div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.85rem; margin-bottom: 16px;">
+          <div>
+            <strong>CUSTOMER DETAILS:</strong><br>
+            Name: Srinivas Rao<br>
+            Mobile: +91 98480XXXXX<br>
+            Vehicle: KTM Duke 390 BS6 (373cc)<br>
+            Odometer: 14,250 KM
+          </div>
+          <div style="text-align: right;">
+            ${gstOn ? '<strong>GSTIN:</strong> 36AABCC7890M1ZS<br>' : ''}
+            ${tradeOn ? '<strong>Trade License:</strong> GHMC-TRD-2026-89412<br>' : ''}
+            ${aadhaarOn ? '<strong>Shop Aadhaar KYC:</strong> XXXX-XXXX-7890<br><strong>Shop PAN:</strong> AABCC7890M<br>' : ''}
+            Master Tech: Ustad Abdul Kareem (30-Yr Head)
+          </div>
+        </div>
+
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 0.85rem;">
+          <thead>
+            <tr style="border-bottom: 1px solid #cbd5e1; text-align: left;">
+              <th style="padding: 6px;">Description</th>
+              <th style="padding: 6px; text-align: right;">Rate (₹)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 6px;">2W Master Periodic Service + 42-Point Laser Check</td>
+              <td style="padding: 6px; text-align: right;">1,450.00</td>
+            </tr>
+            <tr>
+              <td style="padding: 6px;">Tappet Clearance & Shim Calibration (Zero-Knock Tuning)</td>
+              <td style="padding: 6px; text-align: right;">400.00</td>
+            </tr>
+            <tr style="border-top: 1px solid #cbd5e1;">
+              <td style="padding: 6px; font-weight: bold;">Subtotal</td>
+              <td style="padding: 6px; text-align: right; font-weight: bold;">₹${baseAmount}.00</td>
+            </tr>
+            ${gstOn ? `
+              <tr>
+                <td style="padding: 4px 6px;">CGST @ 9%</td>
+                <td style="padding: 4px 6px; text-align: right;">₹${cgst}.00</td>
+              </tr>
+              <tr>
+                <td style="padding: 4px 6px;">SGST @ 9%</td>
+                <td style="padding: 4px 6px; text-align: right;">₹${sgst}.00</td>
+              </tr>
+            ` : ''}
+            <tr style="border-top: 2px solid #0f172a; font-size: 1rem; font-weight: bold;">
+              <td style="padding: 8px 6px;">TOTAL AMOUNT DUE</td>
+              <td style="padding: 8px 6px; text-align: right;">₹${total}.00</td>
+            </tr>
+          </tbody>
+        </table>
+
+        ${warrantyOn ? `
+          <div style="background: #f1f5f9; border: 1px dashed #0f172a; border-radius: 6px; padding: 10px; font-size: 0.8rem; text-align: center;">
+            🛡️ <strong>6 MONTHS / 6,000 KM WRITTEN WORKSHOP WARRANTY SEAL</strong><br>
+            All genuine OEM parts tested. No parts replaced without prior WhatsApp Video & Quotation approval.
+          </div>
+        ` : ''}
+      `;
+    }
+
+    function printInvoicePDF() {
+      const win = window.open('', '_blank');
+      win.document.write(`<html><head><title>Invoice</title></head><body style="padding: 30px;">${document.getElementById('invoice-preview-box').innerHTML}<script>window.print();<\/script></body></html>`);
+      win.document.close();
+    }
+
+    function shareInvoiceWhatsApp() {
+      const url = `https://wa.me/918333007351?text=${encodeURIComponent('Hello Customer, your verified CC Motocrafts Tax Invoice for KTM Duke 390 (CCM-HYD-2W101) is ready with 6-Month Written Warranty. Total: ₹1,850.')}`;
+      window.open(url, '_blank');
+    }
+
+    // Session Kill Switch Monitor
+    setInterval(() => {
+      const sessionRevoked = localStorage.getItem('ccm_kill_partner') === 'true';
+      const revokedEl = document.getElementById('partner-revoked-screen');
+      if (sessionRevoked) {
+        revokedEl.style.display = 'flex';
+      } else {
+        revokedEl.style.display = 'none';
+      }
+    }, 2000);
+
+    // Auto-login if previously saved
+    if (localStorage.getItem('ccm_partner_auth') === 'true') {
+      showTerminal();
+    }
+  </script>
 </body>
 </html>
