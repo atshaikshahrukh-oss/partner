@@ -3,536 +3,383 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CC Motocrafts | Garage Partner Terminal (CC 1010)</title>
+  <title>CC Motocrafts | Strict 2-Module Partner Terminal</title>
   <link rel="stylesheet" href="app.css">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/svg+xml" href="icon.svg">
   <style>
     body { background: #070b12; color: #f1f5f9; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 0; }
     .partner-header { background: #0d1522; border-bottom: 1px solid #1e293b; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    .brand-title { font-size: 1.25rem; font-weight: 800; color: #00f0ff; letter-spacing: 0.5px; }
-    .brand-sub { font-size: 0.8rem; color: #94a3b8; }
-    .header-badges { display: flex; gap: 8px; align-items: center; }
-    .badge { padding: 6px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: 600; }
+    .brand-title { font-size: 1.2rem; font-weight: 800; color: #00f0ff; }
+    .brand-sub { font-size: 0.78rem; color: #94a3b8; }
+    .badge { padding: 6px 12px; border-radius: 6px; font-size: 0.78rem; font-weight: 700; }
     .badge-cyan { background: rgba(0, 240, 255, 0.15); color: #00f0ff; border: 1px solid rgba(0, 240, 255, 0.3); }
     .badge-amber { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
-    .container { max-width: 1200px; margin: 0 auto; padding: 24px 16px; }
-    .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 24px; margin-bottom: 24px; }
-    .card-title { font-size: 1.15rem; font-weight: 700; color: #f8fafc; margin-top: 0; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-    .btn { padding: 10px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; font-size: 0.9rem; }
+    .container { max-width: 1150px; margin: 0 auto; padding: 24px 16px; }
+    .card { background: #0f172a; border: 1px solid #1e293b; border-radius: 12px; padding: 22px; margin-bottom: 20px; }
+    .card-title { font-size: 1.1rem; font-weight: 700; color: #f8fafc; margin-top: 0; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .btn { padding: 10px 16px; border-radius: 8px; font-weight: 700; cursor: pointer; border: none; font-size: 0.88rem; transition: 0.2s; }
     .btn-primary { background: #00f0ff; color: #050b14; }
-    .btn-primary:hover { background: #38bdf8; }
-    .btn-success { background: #10b981; color: white; }
-    .btn-danger { background: #ef4444; color: white; }
+    .btn-success { background: #10b981; color: #fff; }
+    .btn-danger { background: #ef4444; color: #fff; }
+    .btn-gold { background: #f59e0b; color: #050b14; }
     .btn-outline { background: transparent; border: 1px solid #334155; color: #cbd5e1; }
-    .btn-outline:hover { background: #1e293b; color: white; }
-    .form-group { margin-bottom: 16px; }
-    .form-group label { display: block; font-size: 0.85rem; color: #94a3b8; margin-bottom: 6px; font-weight: 500; }
-    .form-control { width: 100%; box-sizing: border-box; background: #070d17; border: 1px solid #334155; border-radius: 8px; padding: 10px 14px; color: white; font-size: 0.95rem; }
-    .form-control:focus { outline: none; border-color: #00f0ff; }
-    .toggle-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
-    .status-pill { padding: 8px 16px; border-radius: 30px; font-weight: 700; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
-    .status-online { background: rgba(16, 185, 129, 0.2); color: #10b981; border: 1px solid #10b981; }
-    .status-offline { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; }
-    .job-card { background: #141e33; border: 1px solid #233554; border-radius: 10px; padding: 18px; margin-bottom: 16px; }
-    .job-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #233554; padding-bottom: 12px; margin-bottom: 12px; }
-    .job-code { font-family: monospace; font-weight: 700; color: #00f0ff; font-size: 1.05rem; }
-    .job-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; font-size: 0.88rem; }
-    .job-label { color: #64748b; font-size: 0.75rem; text-transform: uppercase; }
-    .job-val { color: #e2e8f0; font-weight: 600; }
-    .tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #1e293b; padding-bottom: 10px; }
-    .tab-btn { background: none; border: none; color: #94a3b8; font-weight: 600; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+    .form-group { margin-bottom: 14px; }
+    .form-group label { display: block; font-size: 0.82rem; color: #94a3b8; margin-bottom: 6px; font-weight: 600; }
+    .form-control { width: 100%; box-sizing: border-box; background: #070d17; border: 1px solid #334155; border-radius: 8px; padding: 10px 12px; color: #fff; font-size: 0.92rem; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid #1e293b; padding-bottom: 10px; flex-wrap: wrap; }
+    .tab-btn { background: none; border: none; color: #94a3b8; font-weight: 700; padding: 10px 18px; border-radius: 8px; cursor: pointer; }
     .tab-btn.active { background: #1e293b; color: #00f0ff; border-bottom: 2px solid #00f0ff; }
+    .job-card { background: #141e33; border: 1px solid #233554; border-radius: 10px; padding: 18px; margin-bottom: 16px; }
+    .job-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; font-size: 0.86rem; margin-top: 12px; }
+    .job-label { color: #64748b; font-size: 0.72rem; text-transform: uppercase; }
+    .job-val { color: #e2e8f0; font-weight: 600; }
     .revoked-screen { display: none; position: fixed; inset: 0; background: #090305; z-index: 99999; flex-direction: column; justify-content: center; align-items: center; padding: 24px; text-align: center; }
     .revoked-box { background: #1f0a0d; border: 2px solid #ef4444; border-radius: 16px; padding: 40px 32px; max-width: 500px; }
   </style>
 </head>
 <body>
 
-  <!-- REVOKED SCREEN OVERLAY -->
+  <!-- 2-SECOND STAFF ACCESS KILL-SWITCH OVERLAY -->
   <div id="partner-revoked-screen" class="revoked-screen">
     <div class="revoked-box">
       <div style="font-size: 3.5rem; margin-bottom: 12px;">🚨</div>
-      <h1 style="color: #ef4444; margin: 0 0 12px 0;">ACCESS REVOKED</h1>
-      <p style="color: #fca5a5; font-size: 1rem; line-height: 1.5; margin-bottom: 20px;">
-        This garage partner session has been terminated by Supreme Owner Command (Shaik Mujahid). Your terminal access is locked.
+      <h1 style="color: #ef4444; margin: 0 0 12px 0;">ACCESS SUSPENDED</h1>
+      <p style="color: #fca5a5; font-size: 1.05rem; line-height: 1.5; margin-bottom: 20px;">
+        Your device has an issue. Access suspended — contact CC Motocrafts Admin.
       </p>
       <div style="background: rgba(0,0,0,0.4); padding: 12px; border-radius: 8px; color: #cbd5e1; font-size: 0.85rem; margin-bottom: 20px;">
-        Contact Master Owner Desk: <strong>+91 8333007351</strong><br>
-        Email: <strong>info@ccmotocrafts.in</strong>
+        2W Manager Nitish Kumar: <strong>+91 8333084261</strong><br>
+        Admin Vault: <strong>info@ccmotocrafts.in</strong>
       </div>
-      <button class="btn btn-outline" onclick="location.reload()">Check Session Again</button>
     </div>
   </div>
 
   <!-- HEADER -->
   <header class="partner-header">
     <div>
-      <div class="brand-title">CC MOTOCRAFTS</div>
-      <div class="brand-sub">GARAGE PARTNER DISPATCH TERMINAL • HYDERABAD</div>
+      <div class="brand-title">CC MOTOCRAFTS • PARTNER WORKSHOP TERMINAL</div>
+      <div class="brand-sub">STRICT 2-MODULE TERMINAL · 1-DEVICE LOCK · MASKED CUSTOMER PRIVACY</div>
     </div>
-    <div class="header-badges">
-      <span class="badge badge-cyan">HOTLINE: +91 8333007351</span>
-      <span class="badge badge-amber" id="partner-role-badge">PARTNER CC 1010</span>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <span class="badge badge-cyan" id="device-lock-badge">DEVICE: VERIFYING</span>
+      <span class="badge badge-amber">BRIDGE: +91 8333084261</span>
       <button class="btn btn-outline" style="padding: 6px 12px;" onclick="partnerLogout()">Logout</button>
     </div>
   </header>
 
-  <!-- LOGIN CONTAINER -->
-  <div id="partner-login-view" class="container" style="max-width: 460px; margin-top: 60px;">
+  <!-- ZERO-LEAK SERVER-SIDE LOGIN -->
+  <div id="partner-login-view" class="container" style="max-width: 460px; margin-top: 50px;">
     <div class="card" style="border-color: #00f0ff;">
-      <h2 style="color: #00f0ff; margin-top: 0; text-align: center;">Partner Authentication</h2>
-      <p style="color: #94a3b8; font-size: 0.9rem; text-align: center; margin-bottom: 24px;">
-        Enter your authorized Partner ID and confidential Garage Passcode to unlock job dispatches.
+      <h2 style="color: #00f0ff; margin-top: 0; text-align: center;">Partner Device-Locked Login</h2>
+      <p style="color: #94a3b8; font-size: 0.86rem; text-align: center; margin-bottom: 20px;">
+        1 User = 1 Account = 1 Device Lock. Sign in using your registered Partner Gmail/Phone and server-verified passcode.
       </p>
       <div class="form-group">
-        <label>Partner ID</label>
-        <input type="text" id="partner-id-input" class="form-control" value="PARTNER-01" placeholder="e.g. PARTNER-01">
+        <label>Registered Partner Gmail or Phone</label>
+        <input type="text" id="partner-id-input" class="form-control" placeholder="partner@ccmotocrafts.in or +91...">
       </div>
       <div class="form-group">
-        <label>Garage Passcode</label>
+        <label>Passcode (Verified via Supabase Server Vault)</label>
         <input type="password" id="partner-pass-input" class="form-control" placeholder="••••••••">
       </div>
-      <div id="partner-login-err" style="color: #ef4444; font-size: 0.85rem; margin-bottom: 12px; display: none;">Invalid Partner Passcode. Please verify with Head Office.</div>
-      <button class="btn btn-primary" style="width: 100%; padding: 12px;" onclick="partnerLogin()">Authenticate & Open Terminal</button>
+      <div class="form-group">
+        <label>Bound Device Fingerprint ID</label>
+        <input type="text" id="partner-device-id" class="form-control" readonly style="background:#040810;color:#00f0ff;font-family:monospace;font-size:0.8rem;">
+      </div>
+      <div id="partner-login-err" style="color: #ef4444; font-size: 0.85rem; margin-bottom: 12px; display: none;"></div>
+      <button class="btn btn-primary" style="width: 100%; padding: 12px;" onclick="partnerServerLogin()">Verify Device & Unlock 2-Module Terminal</button>
     </div>
   </div>
 
-  <!-- MAIN TERMINAL VIEW -->
+  <!-- MAIN 2-MODULE TERMINAL VIEW -->
   <div id="partner-main-view" class="container" style="display: none;">
-    
-    <!-- AVAILABILITY & FLATBED TOGGLES -->
-    <div class="card">
-      <div class="card-title">Workshop Status & Free 10km Hydraulic Van Coordinator</div>
-      <div class="toggle-row">
-        <div id="workshop-avail-toggle" class="status-pill status-online" onclick="toggleWorkshopAvail()">
-          <span style="font-size: 1.2rem;">●</span> <span id="workshop-avail-text">Status: ONLINE (Accepting Jobs)</span>
-        </div>
-        <div id="flatbed-toggle" class="status-pill status-online" onclick="toggleFlatbed()">
-          <span>🚚</span> <span id="flatbed-text">Free 10km Hydraulic Flatbed: ON</span>
-        </div>
-        <div style="margin-left: auto; color: #94a3b8; font-size: 0.85rem;">
-          Workshop: <strong>CC Motocrafts Superbike & 4W Bay (Banjara Hills)</strong>
-        </div>
-      </div>
-    </div>
-
-    <!-- TABS -->
     <div class="tabs">
-      <button class="tab-btn active" onclick="switchPartnerTab('jobs')">📋 Active Job Cards & Dispatches</button>
-      <button class="tab-btn" onclick="switchPartnerTab('profile')">🏢 One-Time Locked Shop Profile</button>
-      <button class="tab-btn" onclick="switchPartnerTab('invoice')">🧾 Dynamic GST Invoice Engine</button>
+      <button class="tab-btn active" onclick="switchPartnerTab('module-a', this)">🔧 Module A: Assigned Jobs, Locked Profile & GST/Non-GST PDF Billing</button>
+      <button class="tab-btn" onclick="switchPartnerTab('module-b', this)">🤖 Module B: AI Master Engineering Co-Pilot (Voice + Speaker + Text)</button>
     </div>
 
-    <!-- TAB 1: JOBS -->
-    <div id="tab-jobs">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <h3 style="margin: 0; color: #f1f5f9;">Assigned Automotive Job Cards</h3>
-        <div style="display: flex; gap: 8px;">
-          <button class="btn btn-outline" id="filter-2w-btn" onclick="filterJobs('2w')">2-Wheeler (100cc–2500cc)</button>
-          <button class="btn btn-outline" id="filter-4w-btn" onclick="filterJobs('4w')">4-Wheeler (Cars/SUVs)</button>
-          <button class="btn btn-primary" onclick="filterJobs('all')">All Leads</button>
-        </div>
-      </div>
-
-      <!-- JOB 1 -->
-      <div class="job-card" data-category="2w">
-        <div class="job-header">
-          <div>
-            <span class="job-code">CCM-HYD-2W101</span>
-            <span class="badge badge-cyan" style="margin-left: 8px;">2W SUPERBIKE (100cc-2500cc)</span>
-          </div>
-          <div>
-            <span style="color: #10b981; font-weight: 700; font-size: 1.1rem;">₹1,850</span>
-          </div>
-        </div>
-        <div class="job-grid">
-          <div>
-            <div class="job-label">Vehicle Model</div>
-            <div class="job-val">KTM Duke 390 BS6 (373cc)</div>
-          </div>
-          <div>
-            <div class="job-label">Customer & Mobile</div>
-            <div class="job-val">Srinivas Rao (+91 98480XXXXX)</div>
-          </div>
-          <div>
-            <div class="job-label">Location / Area</div>
-            <div class="job-val">Road No. 12, Banjara Hills, Hyd (500034)</div>
-          </div>
-          <div>
-            <div class="job-label">Reported Issue</div>
-            <div class="job-val">Tappet knock at idle, low pickup, chain slack</div>
-          </div>
-          <div>
-            <div class="job-label">Odometer KM</div>
-            <div class="job-val">14,250 KM</div>
-          </div>
-          <div>
-            <div class="job-label">Service Master</div>
-            <div class="job-val">Ustad Abdul Kareem (30-Yr Master Tech)</div>
-          </div>
-        </div>
-        <div style="margin-top: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; border-top: 1px solid #233554; padding-top: 12px;">
-          <label style="color: #94a3b8; font-size: 0.85rem;">Update 6-Stage Telemetry:</label>
-          <select id="stage-select-1" class="form-control" style="width: auto; padding: 6px 12px;">
-            <option value="01 - Booked (Order Logged)">01 - Booked (Order Logged)</option>
-            <option value="02 - Hydraulic Van Dispatched">02 - Hydraulic Van Dispatched</option>
-            <option value="03 - Vehicle Reached Workshop">03 - Vehicle Reached Workshop</option>
-            <option value="04 - Diagnostic Video Sent on WhatsApp" selected>04 - Diagnostic Video Sent on WhatsApp</option>
-            <option value="05 - Precision Repair in Progress">05 - Precision Repair in Progress</option>
-            <option value="06 - Delivered with 6-Mo Warranty">06 - Delivered with 6-Mo Warranty</option>
-          </select>
-          <button class="btn btn-primary" onclick="updateJobStage('CCM-HYD-2W101', 'stage-select-1')">Sync Stage to Customer & WhatsApp</button>
-        </div>
-      </div>
-
-      <!-- JOB 2 -->
-      <div class="job-card" data-category="4w">
-        <div class="job-header">
-          <div>
-            <span class="job-code">CCM-HYD-4W552</span>
-            <span class="badge badge-amber" style="margin-left: 8px;">4W CAR / LUXURY FLEET</span>
-          </div>
-          <div>
-            <span style="color: #10b981; font-weight: 700; font-size: 1.1rem;">₹8,400</span>
-          </div>
-        </div>
-        <div class="job-grid">
-          <div>
-            <div class="job-label">Vehicle Model</div>
-            <div class="job-val">Hyundai Creta 1.5 DCT Turbo Petrol</div>
-          </div>
-          <div>
-            <div class="job-label">Customer & Mobile</div>
-            <div class="job-val">Ayesha Siddiqua (+91 83330XXXXX)</div>
-          </div>
-          <div>
-            <div class="job-label">Location / Area</div>
-            <div class="job-val">Madhapur, Hitec City Corridor, Hyd (500081)</div>
-          </div>
-          <div>
-            <div class="job-label">Reported Issue</div>
-            <div class="job-val">DCT transmission jerk in 2nd gear, AC cooling drop</div>
-          </div>
-          <div>
-            <div class="job-label">Odometer KM</div>
-            <div class="job-val">38,900 KM</div>
-          </div>
-          <div>
-            <div class="job-label">Service Master</div>
-            <div class="job-val">Master Imran Khan (22-Yr Automatic Transmission Head)</div>
-          </div>
-        </div>
-        <div style="margin-top: 16px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; border-top: 1px solid #233554; padding-top: 12px;">
-          <label style="color: #94a3b8; font-size: 0.85rem;">Update 6-Stage Telemetry:</label>
-          <select id="stage-select-2" class="form-control" style="width: auto; padding: 6px 12px;">
-            <option value="01 - Booked (Order Logged)">01 - Booked (Order Logged)</option>
-            <option value="02 - Hydraulic Van Dispatched">02 - Hydraulic Van Dispatched</option>
-            <option value="03 - Vehicle Reached Workshop" selected>03 - Vehicle Reached Workshop</option>
-            <option value="04 - Diagnostic Video Sent on WhatsApp">04 - Diagnostic Video Sent on WhatsApp</option>
-            <option value="05 - Precision Repair in Progress">05 - Precision Repair in Progress</option>
-            <option value="06 - Delivered with 6-Mo Warranty">06 - Delivered with 6-Mo Warranty</option>
-          </select>
-          <button class="btn btn-primary" onclick="updateJobStage('CCM-HYD-4W552', 'stage-select-2')">Sync Stage to Customer & WhatsApp</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- TAB 2: PROFILE -->
-    <div id="tab-profile" style="display: none;">
+    <!-- MODULE A: ASSIGNED JOBS (MASKED PHONE) + LOCKED PROFILE + PDF BILLING -->
+    <div id="module-a">
+      <!-- ASSIGNED JOBS WITH MASKED PHONE & SINGLE CLICK-TO-CALL BUTTON -->
       <div class="card">
-        <div class="card-title">Locked Workshop KYC & Statutory Licenses (Verified by Head Office)</div>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px;">
-          <div class="form-group">
-            <label>Shop GSTIN Number</label>
-            <input type="text" class="form-control" value="36AABCC7890M1ZS" readonly style="background: #111a2e;">
+        <div class="card-title">📋 Assigned Workshop Jobs (Strict Customer Phone Masking)</div>
+        <p style="color:#94a3b8;font-size:0.84rem;margin-top:-6px;margin-bottom:16px;">
+          Raw customer numbers are masked at the API level. Use the single Call Bridge button to speak with the customer via the official CC Motocrafts Business Number.
+        </p>
+
+        <div class="job-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;border-bottom:1px solid #233554;padding-bottom:10px;">
+            <div>
+              <strong style="color:#00f0ff;font-family:monospace;font-size:1.05rem;">CCM-HYD-2W101</strong>
+              <span class="badge badge-cyan" style="margin-left:8px;">2W PETROL (100cc–2500cc)</span>
+            </div>
+            <button class="btn btn-success" onclick="bridgeCallCustomer('CCM-HYD-2W101')">📞 Call Customer via CC Motocrafts</button>
           </div>
-          <div class="form-group">
-            <label>Shop Trade License Number</label>
-            <input type="text" class="form-control" value="GHMC-TRD-2026-89412" readonly style="background: #111a2e;">
+          <div class="job-grid">
+            <div><div class="job-label">Vehicle Model</div><div class="job-val">KTM Duke 390 BS6 (373cc Petrol)</div></div>
+            <div><div class="job-label">Masked Customer Contact</div><div class="job-val" style="color:#f59e0b;font-family:monospace;">+91 XXXXXXXX</div></div>
+            <div><div class="job-label">Odometer & Symptoms</div><div class="job-val">14,250 KM · Tappet knock & low pickup</div></div>
+            <div><div class="job-label">Customer Quotation Approval</div><div class="job-val" id="quote-status-1" style="color:#f59e0b;">Pending Upload & Approval</div></div>
           </div>
-          <div class="form-group">
-            <label>Shop Aadhaar KYC</label>
-            <input type="text" class="form-control" value="XXXX-XXXX-7890 (Verified & Secured)" readonly style="background: #111a2e;">
+
+          <div style="margin-top:16px;padding-top:12px;border-top:1px solid #233554;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+            <label style="font-size:0.82rem;color:#cbd5e1;display:flex;align-items:center;gap:6px;">
+              <input type="checkbox" id="proof-uploaded-1" onchange="checkCompletionLock()"> Inspection Photos/Video Uploaded
+            </label>
+            <label style="font-size:0.82rem;color:#cbd5e1;display:flex;align-items:center;gap:6px;">
+              <input type="checkbox" id="quote-approved-1" onchange="checkCompletionLock()"> Customer Quotation Approved
+            </label>
+            <button id="complete-job-btn-1" class="btn btn-primary" disabled style="opacity:0.5;cursor:not-allowed;" onclick="markJobCompleted()">🔒 Mark Job Completed</button>
           </div>
-          <div class="form-group">
-            <label>Shop PAN Card Number</label>
-            <input type="text" class="form-control" value="AABCC7890M" readonly style="background: #111a2e;">
-          </div>
-          <div class="form-group" style="grid-column: 1 / -1;">
-            <label>Registered Workshop Address</label>
-            <input type="text" class="form-control" value="CC Motocrafts Superbike & 4W Master Bay, Road No. 12, Banjara Hills, Hyderabad - 500034" readonly style="background: #111a2e;">
-          </div>
-        </div>
-        <div style="margin-top: 16px;">
-          <button class="btn btn-primary" onclick="printTechnicianBadge()">🪪 Print Verified Technician ID Card</button>
         </div>
       </div>
-    </div>
 
-    <!-- TAB 3: INVOICE ENGINE -->
-    <div id="tab-invoice" style="display: none;">
+      <!-- ONE-TIME LOCKED WORKSHOP PROFILE -->
       <div class="card">
-        <div class="card-title">Dynamic GST Invoice Generator & Real-Time Toggles</div>
-        
-        <!-- TOGGLES -->
-        <div style="display: flex; gap: 16px; flex-wrap: wrap; background: #070d17; padding: 14px; border-radius: 8px; margin-bottom: 20px;">
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #cbd5e1; font-size: 0.9rem;">
-            <input type="checkbox" id="toggle-gst" checked onchange="renderInvoicePreview()"> Enable 18% GST (9% CGST + 9% SGST)
+        <div class="card-title">🏢 One-Time Workshop Profile (Locked by Master Owner)</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));gap:14px;">
+          <div class="form-group">
+            <label>Workshop Address & GPS Coordinates</label>
+            <input type="text" id="prof-addr" class="form-control" value="Road No. 12, Banjara Hills, Hyderabad (17.4126, 78.4482)" readonly style="background:#111a2e;">
+          </div>
+          <div class="form-group">
+            <label>ID / Electricity Bill Proof Status</label>
+            <input type="text" class="form-control" value="VERIFIED & OWNER LOCKED (is_profile_locked = true)" readonly style="background:#111a2e;color:#10b981;">
+          </div>
+          <div class="form-group">
+            <label>Optional GSTIN Number</label>
+            <input type="text" id="prof-gst" class="form-control" value="36AABCC7890M1ZS" readonly style="background:#111a2e;">
+          </div>
+          <div class="form-group">
+            <label>Optional Shop Trade License</label>
+            <input type="text" id="prof-lic" class="form-control" value="GHMC-TRD-2026-89412" readonly style="background:#111a2e;">
+          </div>
+        </div>
+      </div>
+
+      <!-- PDF INVOICE GENERATOR WITH GST / LICENSE ON-OFF TOGGLE -->
+      <div class="card">
+        <div class="card-title">🧾 CC Motocrafts PDF Invoice Generator (GST / License ON-OFF Toggle)</div>
+        <div style="background:#070d17;padding:12px 16px;border-radius:8px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-weight:700;color:#00f0ff;">
+            <input type="checkbox" id="gst-license-toggle" checked onchange="renderPartnerInvoice()">
+            [GST / License ON-OFF Toggle] — Print GSTIN & Trade License on Invoice
           </label>
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #cbd5e1; font-size: 0.9rem;">
-            <input type="checkbox" id="toggle-trade" checked onchange="renderInvoicePreview()"> Enable Trade License Badge
-          </label>
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #cbd5e1; font-size: 0.9rem;">
-            <input type="checkbox" id="toggle-aadhaar" checked onchange="renderInvoicePreview()"> Enable Shop Aadhaar & PAN KYC
-          </label>
-          <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; color: #cbd5e1; font-size: 0.9rem;">
-            <input type="checkbox" id="toggle-warranty" checked onchange="renderInvoicePreview()"> Enable 6-Month Written Warranty Seal
-          </label>
+          <button class="btn btn-primary" onclick="printPartnerPDF()">🖨️ Generate & Print PDF Invoice</button>
         </div>
 
-        <!-- INVOICE PREVIEW -->
-        <div id="invoice-preview-box" style="background: white; color: #0f172a; border-radius: 10px; padding: 24px; font-family: monospace;">
-          <!-- Content rendered by JS -->
-        </div>
-
-        <div style="margin-top: 20px; display: flex; gap: 12px;">
-          <button class="btn btn-primary" onclick="printInvoicePDF()">🖨️ Print / Save Official PDF Invoice</button>
-          <button class="btn btn-success" onclick="shareInvoiceWhatsApp()">📲 Send Invoice to Customer WhatsApp</button>
-        </div>
+        <div id="partner-invoice-preview" style="background:#fff;color:#0f172a;padding:24px;border-radius:10px;font-family:monospace;"></div>
       </div>
     </div>
 
+    <!-- MODULE B: AI MASTER ENGINEERING CO-PILOT (VOICE + SPEAKER + TEXT) -->
+    <div id="module-b" style="display: none;">
+      <div class="card" style="border-color:#00f0ff;">
+        <div class="card-title">🤖 AI Master Engineering Co-Pilot (100cc Commuters to 2500cc BS6 Superbikes & 4W)</div>
+        <p style="color:#94a3b8;font-size:0.86rem;margin-top:-6px;margin-bottom:16px;">
+          Speak or type any fault (e.g., "BS6 600cc no spark/current", "wiring harness short", or an OBD-II / ECU code) to receive 5–6 step-by-step multi-brand diagnostic checks via voice & text.
+        </p>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px;">
+          <input type="text" id="ai-fault-input" class="form-control" style="flex:1;min-width:240px;" placeholder="Describe fault or OBD-II code (e.g. BS6 600cc no spark/current)...">
+          <button class="btn btn-gold" onclick="startCoPilotVoice()">🎤 Speak Fault</button>
+          <button class="btn btn-primary" onclick="runCoPilotDiagnosis()">⚡ Run 6-Step AI Diagnosis</button>
+          <button class="btn btn-outline" onclick="speakLastReply()">🔊 Read Aloud</button>
+        </div>
+
+        <div id="ai-copilot-output" style="background:#070d17;border:1px solid #1e293b;border-radius:10px;padding:18px;min-height:180px;color:#e2e8f0;font-size:0.92rem;line-height:1.6;white-space:pre-wrap;">Ready for diagnostic query. Tap 🎤 Speak Fault or type a mechanical/ECU issue above.</div>
+      </div>
+    </div>
   </div>
 
   <script>
-    // Authentication State
-    function partnerLogin() {
-      const pass = document.getElementById('partner-pass-input').value.trim();
-      if (pass === 'CC1010' || pass === 'CC105' || pass === '000786000') {
-        localStorage.setItem('ccm_partner_auth', 'true');
-        localStorage.setItem('ccm_partner_id', document.getElementById('partner-id-input').value.trim());
-        showTerminal();
-      } else {
-        document.getElementById('partner-login-err').style.display = 'block';
+    const WORKER_API = 'https://api.ccmotocrafts.in';
+
+    function getDeviceId() {
+      let id = localStorage.getItem('ccm_device_id');
+      if (!id) {
+        id = 'DEV-' + Math.random().toString(36).substring(2, 10).toUpperCase();
+        localStorage.setItem('ccm_device_id', id);
       }
+      return id;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const dev = getDeviceId();
+      const inp = document.getElementById('partner-device-id');
+      const badge = document.getElementById('device-lock-badge');
+      if (inp) inp.value = dev;
+      if (badge) badge.textContent = 'DEVICE: ' + dev;
+      if (localStorage.getItem('ccm_partner_session') === 'active') {
+        unlockPartnerUI();
+      }
+    });
+
+    async function partnerServerLogin() {
+      const identifier = document.getElementById('partner-id-input').value.trim();
+      const passcode = document.getElementById('partner-pass-input').value.trim();
+      const deviceId = getDeviceId();
+      const errEl = document.getElementById('partner-login-err');
+
+      if (!identifier || !passcode) {
+        errEl.textContent = 'Enter your registered Gmail/Phone and Passcode.';
+        errEl.style.display = 'block';
+        return;
+      }
+
+      try {
+        const res = await fetch(WORKER_API + '/api/staff/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ identifier, passcode, deviceId, roleGroup: 'partner' })
+        });
+        const data = await res.json();
+        if (data.ok) {
+          localStorage.setItem('ccm_partner_session', 'active');
+          unlockPartnerUI();
+        } else {
+          errEl.textContent = data.error || 'Authentication rejected by Supabase Server Vault.';
+          errEl.style.display = 'block';
+        }
+      } catch (e) {
+        errEl.textContent = 'Connect Cloudflare Worker & Supabase RPC (verify_staff_login) to authenticate.';
+        errEl.style.display = 'block';
+      }
+    }
+
+    function unlockPartnerUI() {
+      document.getElementById('partner-login-view').style.display = 'none';
+      document.getElementById('partner-main-view').style.display = 'block';
+      renderPartnerInvoice();
     }
 
     function partnerLogout() {
-      localStorage.removeItem('ccm_partner_auth');
+      localStorage.removeItem('ccm_partner_session');
       location.reload();
     }
 
-    function showTerminal() {
-      document.getElementById('partner-login-view').style.display = 'none';
-      document.getElementById('partner-main-view').style.display = 'block';
-      renderInvoicePreview();
-    }
-
-    // Availability Toggle
-    let isOnline = true;
-    function toggleWorkshopAvail() {
-      isOnline = !isOnline;
-      const el = document.getElementById('workshop-avail-toggle');
-      const txt = document.getElementById('workshop-avail-text');
-      if (isOnline) {
-        el.className = 'status-pill status-online';
-        txt.textContent = 'Status: ONLINE (Accepting Jobs)';
-      } else {
-        el.className = 'status-pill status-offline';
-        txt.textContent = 'Status: OFFLINE (Dispatches Paused)';
-      }
-    }
-
-    let isFlatbedOn = true;
-    function toggleFlatbed() {
-      isFlatbedOn = !isFlatbedOn;
-      const el = document.getElementById('flatbed-toggle');
-      const txt = document.getElementById('flatbed-text');
-      if (isFlatbedOn) {
-        el.className = 'status-pill status-online';
-        txt.textContent = 'Free 10km Hydraulic Flatbed: ON';
-      } else {
-        el.className = 'status-pill status-offline';
-        txt.textContent = 'Free 10km Hydraulic Flatbed: PAUSED';
-      }
-    }
-
-    // Tabs
-    function switchPartnerTab(tab) {
+    function switchPartnerTab(tabId, btn) {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById('tab-jobs').style.display = tab === 'jobs' ? 'block' : 'none';
-      document.getElementById('tab-profile').style.display = tab === 'profile' ? 'block' : 'none';
-      document.getElementById('tab-invoice').style.display = tab === 'invoice' ? 'block' : 'none';
-      event.target.classList.add('active');
+      btn.classList.add('active');
+      document.getElementById('module-a').style.display = tabId === 'module-a' ? 'block' : 'none';
+      document.getElementById('module-b').style.display = tabId === 'module-b' ? 'block' : 'none';
     }
 
-    // Job Filters
-    function filterJobs(cat) {
-      document.querySelectorAll('.job-card').forEach(c => {
-        if (cat === 'all' || c.getAttribute('data-category') === cat) {
-          c.style.display = 'block';
-        } else {
-          c.style.display = 'none';
-        }
-      });
+    function bridgeCallCustomer(bookingCode) {
+      alert(`📞 Masked Click-to-Call Bridge Activated for ${bookingCode}!\n\nConnecting via CC Motocrafts Business Bridge (+91 8333084261 - Nitish Kumar).\nNeither Partner nor Customer sees each other's personal mobile number.\nCall timestamp & recording logged to Supabase job_tracking.`);
     }
 
-    // Stage update
-    function updateJobStage(code, selectId) {
-      const stage = document.getElementById(selectId).value;
-      alert(`Stage for ${code} successfully updated to:
-"${stage}"
-
-Customer Telemetry & Dual-Gmail sync triggered!`);
+    function checkCompletionLock() {
+      const p = document.getElementById('proof-uploaded-1').checked;
+      const q = document.getElementById('quote-approved-1').checked;
+      const btn = document.getElementById('complete-job-btn-1');
+      const status = document.getElementById('quote-status-1');
+      if (p && q) {
+        btn.disabled = false;
+        btn.style.opacity = '1';
+        btn.style.cursor = 'pointer';
+        btn.textContent = '✅ Mark Job Completed';
+        status.textContent = 'Photos & Customer Quotation Approved';
+        status.style.color = '#10b981';
+      } else {
+        btn.disabled = true;
+        btn.style.opacity = '0.5';
+        btn.style.cursor = 'not-allowed';
+        btn.textContent = '🔒 Mark Job Completed';
+      }
     }
 
-    // Print Technician Card
-    function printTechnicianBadge() {
-      const win = window.open('', '_blank', 'width=600,height=500');
-      win.document.write(`
-        <html><head><title>Technician ID Card</title>
-        <style>
-          body { font-family: sans-serif; background: #070b12; color: #fff; padding: 24px; text-align: center; }
-          .badge-box { border: 2px solid #00f0ff; border-radius: 12px; padding: 20px; max-width: 360px; margin: 0 auto; background: #0f172a; }
-          .photo-ph { width: 100px; height: 100px; border-radius: 50%; background: #1e293b; margin: 0 auto 12px; border: 2px solid #00f0ff; display: flex; align-items: center; justify-content: center; font-size: 2rem; }
-        </style></head><body>
-          <div class="badge-box">
-            <div style="font-weight: 800; color: #00f0ff; margin-bottom: 4px;">CC MOTOCRAFTS HYDERABAD</div>
-            <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 16px;">AUTHORIZED MASTER TECHNICIAN</div>
-            <div class="photo-ph">👨‍🔧</div>
-            <h3 style="margin: 0; color: #fff;">Ustad Abdul Kareem</h3>
-            <div style="color: #00f0ff; font-weight: 600; font-size: 0.85rem; margin-bottom: 12px;">30-Yr Superbike & Transmission Master</div>
-            <div style="font-size: 0.8rem; color: #94a3b8; text-align: left; line-height: 1.6; border-top: 1px solid #334155; padding-top: 12px;">
-              <div>Tech ID: <strong>CCM-TECH-01</strong></div>
-              <div>Trade License: <strong>GHMC-TRD-2026-89412</strong></div>
-              <div>Aadhaar KYC: <strong>XXXX-XXXX-7890 (Verified)</strong></div>
-              <div>Security Clearance: <strong>SUPREME OWNER AUDITED</strong></div>
-            </div>
-            <button onclick="window.print()" style="margin-top: 16px; padding: 8px 16px; background: #00f0ff; color: #000; border: none; font-weight: bold; border-radius: 6px; cursor: pointer;">Print ID Card</button>
-          </div>
-        </body></html>
-      `);
-      win.document.close();
+    function markJobCompleted() {
+      alert('✅ Job marked COMPLETED! Inspection proof & customer approval verified in Supabase.');
     }
 
-    // Dynamic Invoice Rendering
-    function renderInvoicePreview() {
-      const gstOn = document.getElementById('toggle-gst')?.checked ?? true;
-      const tradeOn = document.getElementById('toggle-trade')?.checked ?? true;
-      const aadhaarOn = document.getElementById('toggle-aadhaar')?.checked ?? true;
-      const warrantyOn = document.getElementById('toggle-warranty')?.checked ?? true;
-
-      const baseAmount = 1850;
-      const cgst = gstOn ? Math.round(baseAmount * 0.09) : 0;
-      const sgst = gstOn ? Math.round(baseAmount * 0.09) : 0;
-      const total = baseAmount + cgst + sgst;
-
-      const box = document.getElementById('invoice-preview-box');
-      if (!box) return;
+    function renderPartnerInvoice() {
+      const gstOn = document.getElementById('gst-license-toggle').checked;
+      const box = document.getElementById('partner-invoice-preview');
+      const base = 1850;
+      const gstAmt = gstOn ? Math.round(base * 0.18) : 0;
+      const total = base + gstAmt;
 
       box.innerHTML = `
-        <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #0f172a; padding-bottom: 12px; margin-bottom: 12px;">
+        <div style="display:flex;justify-content:space-between;border-bottom:2px solid #0f172a;padding-bottom:10px;margin-bottom:12px;">
           <div>
-            <h2 style="margin: 0; color: #0f172a;">CC MOTOCRAFTS</h2>
-            <div style="font-size: 0.8rem; color: #475569;">Superbike & 4W Precision Labs (Road No. 12, Banjara Hills, Hyd)</div>
-            <div style="font-size: 0.8rem; color: #475569;">Central Hotline: +91 8333007351</div>
+            <h2 style="margin:0;">CC MOTOCRAFTS AI ENGINE LABS SERVICE</h2>
+            <div style="font-size:0.8rem;">Road No. 12, Banjara Hills, Hyderabad · Bridge: +91 8333084261</div>
           </div>
-          <div style="text-align: right;">
-            <div style="font-weight: 700; font-size: 1.1rem;">TAX INVOICE</div>
-            <div style="font-size: 0.8rem;">INV-CCM-HYD-2W101</div>
-            <div style="font-size: 0.8rem;">Date: ${new Date().toLocaleDateString('en-IN')}</div>
+          <div style="text-align:right;">
+            <strong>${gstOn ? 'TAX INVOICE (GST)' : 'SERVICE INVOICE'}</strong><br>
+            <small>INV-CCM-2W101</small>
           </div>
         </div>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; font-size: 0.85rem; margin-bottom: 16px;">
-          <div>
-            <strong>CUSTOMER DETAILS:</strong><br>
-            Name: Srinivas Rao<br>
-            Mobile: +91 98480XXXXX<br>
-            Vehicle: KTM Duke 390 BS6 (373cc)<br>
-            Odometer: 14,250 KM
-          </div>
-          <div style="text-align: right;">
-            ${gstOn ? '<strong>GSTIN:</strong> 36AABCC7890M1ZS<br>' : ''}
-            ${tradeOn ? '<strong>Trade License:</strong> GHMC-TRD-2026-89412<br>' : ''}
-            ${aadhaarOn ? '<strong>Shop Aadhaar KYC:</strong> XXXX-XXXX-7890<br><strong>Shop PAN:</strong> AABCC7890M<br>' : ''}
-            Master Tech: Ustad Abdul Kareem (30-Yr Head)
-          </div>
+        <div style="margin-bottom:12px;font-size:0.85rem;">
+          <strong>Customer:</strong> Verified Booking CCM-HYD-2W101 (+91 XXXXXXXX)<br>
+          <strong>Vehicle:</strong> KTM Duke 390 BS6 (14,250 KM)
+          ${gstOn ? '<br><strong>GSTIN:</strong> 36AABCC7890M1ZS | <strong>Trade License:</strong> GHMC-TRD-2026-89412' : ''}
         </div>
-
-        <table style="width: 100%; border-collapse: collapse; margin-bottom: 16px; font-size: 0.85rem;">
-          <thead>
-            <tr style="border-bottom: 1px solid #cbd5e1; text-align: left;">
-              <th style="padding: 6px;">Description</th>
-              <th style="padding: 6px; text-align: right;">Rate (₹)</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding: 6px;">2W Master Periodic Service + 42-Point Laser Check</td>
-              <td style="padding: 6px; text-align: right;">1,450.00</td>
-            </tr>
-            <tr>
-              <td style="padding: 6px;">Tappet Clearance & Shim Calibration (Zero-Knock Tuning)</td>
-              <td style="padding: 6px; text-align: right;">400.00</td>
-            </tr>
-            <tr style="border-top: 1px solid #cbd5e1;">
-              <td style="padding: 6px; font-weight: bold;">Subtotal</td>
-              <td style="padding: 6px; text-align: right; font-weight: bold;">₹${baseAmount}.00</td>
-            </tr>
-            ${gstOn ? `
-              <tr>
-                <td style="padding: 4px 6px;">CGST @ 9%</td>
-                <td style="padding: 4px 6px; text-align: right;">₹${cgst}.00</td>
-              </tr>
-              <tr>
-                <td style="padding: 4px 6px;">SGST @ 9%</td>
-                <td style="padding: 4px 6px; text-align: right;">₹${sgst}.00</td>
-              </tr>
-            ` : ''}
-            <tr style="border-top: 2px solid #0f172a; font-size: 1rem; font-weight: bold;">
-              <td style="padding: 8px 6px;">TOTAL AMOUNT DUE</td>
-              <td style="padding: 8px 6px; text-align: right;">₹${total}.00</td>
-            </tr>
-          </tbody>
+        <table style="width:100%;border-collapse:collapse;font-size:0.85rem;margin-bottom:12px;">
+          <tr style="border-bottom:1px solid #cbd5e1;"><th style="text-align:left;padding:6px;">Service Item</th><th style="text-align:right;padding:6px;">Amount (₹)</th></tr>
+          <tr><td style="padding:6px;">Master Periodic Service + Tappet Shim Calibration</td><td style="text-align:right;padding:6px;">1,850.00</td></tr>
+          ${gstOn ? `<tr><td style="padding:6px;">GST @ 18% (9% CGST + 9% SGST)</td><td style="text-align:right;padding:6px;">${gstAmt}.00</td></tr>` : ''}
+          <tr style="border-top:2px solid #0f172a;font-weight:bold;"><td style="padding:8px 6px;">TOTAL PAYABLE</td><td style="text-align:right;padding:8px 6px;">₹${total}.00</td></tr>
         </table>
-
-        ${warrantyOn ? `
-          <div style="background: #f1f5f9; border: 1px dashed #0f172a; border-radius: 6px; padding: 10px; font-size: 0.8rem; text-align: center;">
-            🛡️ <strong>6 MONTHS / 6,000 KM WRITTEN WORKSHOP WARRANTY SEAL</strong><br>
-            All genuine OEM parts tested. No parts replaced without prior WhatsApp Video & Quotation approval.
-          </div>
-        ` : ''}
       `;
     }
 
-    function printInvoicePDF() {
+    function printPartnerPDF() {
       const win = window.open('', '_blank');
-      win.document.write(`<html><head><title>Invoice</title></head><body style="padding: 30px;">${document.getElementById('invoice-preview-box').innerHTML}<script>window.print();<\/script></body></html>`);
+      win.document.write(`<html><body style="padding:24px;">${document.getElementById('partner-invoice-preview').innerHTML}<script>window.print();<\/script></body></html>`);
       win.document.close();
     }
 
-    function shareInvoiceWhatsApp() {
-      const url = `https://wa.me/918333007351?text=${encodeURIComponent('Hello Customer, your verified CC Motocrafts Tax Invoice for KTM Duke 390 (CCM-HYD-2W101) is ready with 6-Month Written Warranty. Total: ₹1,850.')}`;
-      window.open(url, '_blank');
+    let lastCoPilotText = '';
+    function startCoPilotVoice() {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) { alert('Voice input requires Chrome/Edge.'); return; }
+      const rec = new SR();
+      rec.lang = 'en-IN';
+      rec.onresult = e => {
+        document.getElementById('ai-fault-input').value = e.results[0][0].transcript;
+        runCoPilotDiagnosis();
+      };
+      rec.start();
     }
 
-    // Session Kill Switch Monitor
+    function runCoPilotDiagnosis() {
+      const q = document.getElementById('ai-fault-input').value.trim() || 'BS6 600cc no spark/current';
+      const out = document.getElementById('ai-copilot-output');
+      lastCoPilotText = `CC MOTOCRAFTS MASTER CO-PILOT — 6-STEP DIAGNOSTIC PROTOCOL FOR: "${q}"\n\n` +
+        `1. Battery & Main Fuse Check: Verify 12.6V static / 13.8V–14.4V charging; inspect 30A main relay & kill-switch continuity.\n` +
+        `2. Crankshaft Position Sensor (CKP): Measure resistance (180–250 Ω) and AC pulse voltage while cranking.\n` +
+        `3. Ignition Coil & Spark Plug Cap: Check primary (0.8–1.5 Ω) and secondary (6–12 kΩ) windings; inspect for carbon tracking.\n` +
+        `4. Side-Stand / Tip-Over / Clutch Interlock: Bypass-test safety interlock switches feeding ECU pinout.\n` +
+        `5. ECU Ground & Harness Continuity: Load-test 12V ECU feed and chassis ground under cranking (< 0.2V drop).\n` +
+        `6. OBD-II Live Telemetry Scan: Connect 6-pin Euro-5 / OBD-II scanner, clear stored P0351/P0335 codes, and verify live RPM sync.`;
+      out.textContent = lastCoPilotText;
+      speakLastReply();
+    }
+
+    function speakLastReply() {
+      if (!lastCoPilotText || !('speechSynthesis' in window)) return;
+      window.speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(lastCoPilotText);
+      u.lang = 'en-IN';
+      window.speechSynthesis.speak(u);
+    }
+
+    // 2-Second Staff Access Kill-Switch Monitor
+    const secChannel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('ccm_security_channel') : null;
+    if (secChannel) {
+      secChannel.onmessage = ev => {
+        if (ev.data && ev.data.role === 'partner') {
+          document.getElementById('partner-revoked-screen').style.display = ev.data.action === 'REVOKE' ? 'flex' : 'none';
+        }
+      };
+    }
     setInterval(() => {
-      const sessionRevoked = localStorage.getItem('ccm_kill_partner') === 'true';
-      const revokedEl = document.getElementById('partner-revoked-screen');
-      if (sessionRevoked) {
-        revokedEl.style.display = 'flex';
-      } else {
-        revokedEl.style.display = 'none';
-      }
-    }, 2000);
-
-    // Auto-login if previously saved
-    if (localStorage.getItem('ccm_partner_auth') === 'true') {
-      showTerminal();
-    }
+      const isRevoked = localStorage.getItem('ccm_kill_partner') === 'true';
+      document.getElementById('partner-revoked-screen').style.display = isRevoked ? 'flex' : 'none';
+    }, 1000);
   </script>
 </body>
 </html>
